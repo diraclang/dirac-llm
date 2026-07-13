@@ -1,0 +1,633 @@
+{"prompt": "In diraclang, print 'Hello, World!'.", "completion": "<dirac>  <output>Hello, World!</output> </dirac>"}
+{"prompt": "In diraclang, if num is greater than 10, print 'Value is large'; otherwise, print 'Value is small'.", "completion": "<dirac>  <defvar name=\"num\" value=\"5\" />  <test-if test=\"$num > 10\">    <output>Value is large</output>  </test-if>  <test-if test=\"$num <= 10\">    <output>Value is small</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, loop from 0 to 2 and print each value.", "completion": "<dirac>  <defvar name=\"i\" value=\"0\" />  <loop count=\"3\">    <output><variable name=\"i\" /></output>    <assign name=\"i\"><eval><variable name=\"i\" /> + 1</eval></assign>  </loop> </dirac>"}
+{"prompt": "In diraclang, define a variable myvar with value 'test123' and print it.", "completion": "<dirac>  <defvar name=\"myvar\" value=\"test123\" />  <output>Value is: <variable name=\"myvar\" /> </output> </dirac>"}
+{"prompt": "In diraclang, define variables a=10, b=5, and print their sum as 'Result: 15'.", "completion": "<dirac>  <defvar name=\"a\" value=\"10\" />  <defvar name=\"b\" value=\"5\" />  <output>Result: </output>  <expr eval=\"plus\">    <arg><variable name=\"a\" /></arg>    <arg><variable name=\"b\" /></arg>  </expr> </dirac>"}
+{"prompt": "In diraclang, define a variable x=5, use an if conditional to check if x equals 5, print 'Match!' if true, 'No match!' if false.", "completion": "<dirac>  <defvar name=\"x\" value=\"5\" />  <if>    <cond eval=\"eq\">      <arg><variable name=\"x\" /></arg>      <arg>5</arg>    </cond>    <then>      <output>Match!</output>    </then>    <else>      <output>No match!</output>    </else>  </if> </dirac>"}
+{"prompt": "In diraclang, throw an error and catch it, then print 'Caught error'.", "completion": "<dirac>  <try>    <eval>throw new Error(\"Test error\");</eval>  </try>  <catch>    <output>Caught error</output>  </catch> </dirac>"}
+{"prompt": "In diraclang, write two lines to a file, output to stdout, verify file and clean up.", "completion": "<dirac>  <output file=\"output-test-temp.txt\">File line 1</output>  <output file=\"output-test-temp.txt\">File line 2</output>  <output>stdout output</output>  <system shell=\"bash\">    if [ -f output-test-temp.txt ]; then      echo \"File written\"      rm output-test-temp.txt    fi  </system> </dirac>"}
+{"prompt": "In diraclang, import a math library and call SQUARE with x=5.", "completion": "<dirac>  <import src=\"../examples/lib/math.di\" />  <call name=\"SQUARE\" x=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, define a subroutine fullname with first and last name, and print 'John Doe'.", "completion": "<dirac>  <subroutine name=\"fullname\" param-first=\"string\" param-last=\"string\">    <eval name=\"result\">return first + ' ' + last;</eval>    <output><variable name=\"result\" /></output>  </subroutine>    <call name=\"fullname\" first=\"John\" last=\"Doe\" /> </dirac>"}
+{"prompt": "In diraclang, define a parent subroutine without visible, call nested, and print cleanup message.", "completion": "<subroutine name=\"PARENT_WITHOUT_VISIBLE\">  <output>Parent without visible called</output>    <subroutine name=\"SHOULD_BE_CLEANED\">    <output>This should not be called</output>  </subroutine> </subroutine>  <PARENT_WITHOUT_VISIBLE />  <output>After call: nested was cleaned up</output>"}
+{"prompt": "In diraclang, print 'Hello World' without a root element.", "completion": "<output>Hello</output> <output> </output> <output>World</output>"}
+{"prompt": "In diraclang, generate a script, write to file, execute, and print result.", "completion": "<dirac>  <defvar name=\"generated_script\" literal=\"true\" trim=\"false\">\n<dirac>  <defvar name=\"value\">42</defvar>  <output>Result: <variable name=\"value\" /></output>\n</dirac>  </defvar>  <output file=\"temp-generated.di\"><variable name=\"generated_script\" /></output>  <output>Generated file executed</output>  <system shell=\"bash\">    node dist/cli.js temp-generated.di    rm temp-generated.di  </system> </dirac>"}
+{"prompt": "In diraclang, echo hello using system command.", "completion": "<dirac>  <system>echo hello</system> </dirac>"}
+{"prompt": "In diraclang, import a library with variable substitution and double 10.", "completion": "<dirac>  <subroutine name=\"TestSuite\">    <defvar name=\"libPath\">./fixtures/test-lib.di</defvar>    <import src=\"${libPath}\" />    <defvar name=\"result\" trim=\"true\"><DOUBLE x=\"10\" /></defvar>    <output><variable name=\"result\" /></output>  </subroutine>  <TestSuite /> </dirac>"}
+{"prompt": "In diraclang, set background color to blue using llm and validate.", "completion": "<dirac>  <subroutine name=\"set-color\" description=\"Set a background color\" param-color=\"string:required:Color name\">    <parameters select=\"@color\"/>    <output>Background color is: <variable name=\"color\" /></output>  </subroutine>  <llm execute=\"true\" validate=\"true\" maxTokens=\"100\">    Set the background color to blue  </llm> </dirac>"}
+{"prompt": "In diraclang, break a loop at 3 and print after loop.", "completion": "<loop count=\"10\">  <test-if test=\"$i\" ge=\"3\">    <output>Breaking at <variable name=\"i\" /></output>    <break />  </test-if>  <output>Loop: <variable name=\"i\" /></output> </loop> <output>After loop</output>"}
+{"prompt": "In diraclang, check if PATH environment variable exists and print result.", "completion": "<dirac>  <defvar name=\"mypath\">    <environment name=\"PATH\" />  </defvar>  <output>Path exists: </output>  <test-if test=\"$mypath != ''\">    <output>true</output>  </test-if>  <test-if test=\"$mypath == ''\">    <output>false</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, read all stdin and print it.", "completion": "<dirac>  <defvar name=\"data\">    <input source=\"stdin\" mode=\"all\"/>  </defvar>  <output><variable name=\"data\"/></output> </dirac>"}
+{"prompt": "In diraclang, test if x is greater than 5 and print 'Greater!'.", "completion": "<dirac>  <defvar name=\"x\" value=\"10\" />  <test-if test=\"$x\" gt=\"5\">    <output>Greater!</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, Throw an error and catch it, then print 'Caught error'.", "completion": "<dirac>  <try>    <eval>throw new Error(\"Test error\");</eval>  </try>  <catch>    <output>Caught error</output>  </catch> </dirac>"}
+{"prompt": "In diraclang, Create a nested loop: for i in 0..1 and j in 0..1, print i and letter A or B depending on j.", "completion": "<dirac>  <loop count=\"2\" var=\"i\">    <loop count=\"2\" var=\"j\">      <eval name=\"letter\">return j === 0 ? 'A' : 'B';</eval>      <output><variable name=\"i\" />-<variable name=\"letter\" /> </output>    </loop>  </loop> </dirac>"}
+{"prompt": "In diraclang, Define parent and child subroutines, child extends parent and overrides nested, call child and print outputs.", "completion": "<dirac>  <subroutine name=\"parent\">    <subroutine name=\"nested\">      <output>Parent nested</output>    </subroutine>    <output>In parent, calling: </output>    <call name=\"nested\" />  </subroutine>    <subroutine name=\"child\" extends=\"parent\">    <subroutine name=\"nested\">      <output>Child nested</output>    </subroutine>  </subroutine>    <call name=\"child\" /> </dirac>"}
+{"prompt": "In diraclang, Define a TestSuite subroutine with age, gender, greet, and use available-subroutines to list them.", "completion": "<dirac> <subroutine name=\"TestSuite\">  <subroutine name=\"age\" description=\"Returns the person age\">    <output>42</output>  </subroutine>  <subroutine name=\"gender\" description=\"Returns gender identity\">    <output>Male</output>  </subroutine>  <subroutine name=\"greet\" description=\"Greets someone\">    <output>Hello!</output>  </subroutine>  <available-subroutines /> </subroutine> <TestSuite /> </dirac>"}
+{"prompt": "In diraclang, Define variables a=10, b=20, use eval to sum them, and print 'Sum: 30'.", "completion": "<dirac>  <defvar name=\"a\" value=\"10\" />  <defvar name=\"b\" value=\"20\" />  <eval name=\"sum\">return parseInt(a) + parseInt(b);</eval>  <output>Sum: <variable name=\"sum\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Assign a variable myvar to 'initial', update it to 'updated', and print 'New value: updated'.", "completion": "<dirac>  <defvar name=\"myvar\" value=\"initial\" />  <assign name=\"myvar\" value=\"updated\" />  <output>New value: <variable name=\"myvar\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Define variables a=1, b=2, c=3 and print them as 'a=1, b=2, c=3'.", "completion": "<dirac>  <defvar name=\"a\" value=\"1\" />  <defvar name=\"b\" value=\"2\" />  <defvar name=\"c\" value=\"3\" />  <output>a=<variable name=\"a\" />, b=<variable name=\"b\" />, c=<variable name=\"c\" /></output> </dirac>"}
+{"prompt": "In diraclang, Loop three times, double the index, and print each doubled value.", "completion": "<dirac>  <loop count=\"3\" var=\"i\">    <eval name=\"doubled\">return parseInt(i) * 2;</eval>    <output><variable name=\"doubled\" /></output>  </loop> </dirac>"}
+{"prompt": "In diraclang, Output 'Skipped'.", "completion": "<dirac>  <output>Skipped</output> </dirac>"}
+{"prompt": "In diraclang, Write two lines to a file, output to stdout, verify file and clean up.", "completion": "<dirac>  <output file=\"output-test-temp.txt\">File line 1</output>  <output file=\"output-test-temp.txt\">File line 2</output>  <output>stdout output</output>  <system shell=\"bash\">    if [ -f output-test-temp.txt ]; then      echo \"File written\"      rm output-test-temp.txt    fi  </system> </dirac>"}
+{"prompt": "In diraclang, Loop from 0 to 2 and print each value.", "completion": "<dirac>  <defvar name=\"i\" value=\"0\" />  <loop count=\"3\">    <output><variable name=\"i\" /></output>    <assign name=\"i\"><eval><variable name=\"i\" /> + 1</eval></assign>  </loop> </dirac>"}
+{"prompt": "In diraclang, Define a variable x=5, use an if conditional to check if x equals 5, print 'Match!' if true, 'No match!' if false.", "completion": "<dirac>  <defvar name=\"x\" value=\"5\" />  <if>    <cond eval=\"eq\">      <arg><variable name=\"x\" /></arg>      <arg>5</arg>    </cond>    <then>      <output>Match!</output>    </then>    <else>      <output>No match!</output>    </else>  </if> </dirac>"}
+{"prompt": "In diraclang, Define a parent subroutine with visible attribute, register a nested helper subroutine, and call the parent to print before, nested, after, and call helper.", "completion": "<subroutine name=\"PARENT_WITH_VISIBLE\" visible=\"subroutine\">  <output>Before call</output>    <subroutine name=\"NESTED_HELPER\">    <output>Calling NESTED_HELPER: Success!</output>  </subroutine>    <output>Nested registered</output> </subroutine>"}
+{"prompt": "In diraclang, Assign a variable result to 0, use eval to set result to 10+5, and print 'Result: 15'.", "completion": "<dirac>  <defvar name=\"result\" value=\"0\" />  <eval name=\"result\">return 10 + 5;</eval>  <output>Result: <variable name=\"result\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Define inner and outer subroutines, call outer with p=x and q=y, and print main scope variables before and after.", "completion": "<dirac>  <subroutine name=\"inner\" param-r=\"string\" param-s=\"string\">    <output>inner: r=<variable name=\"r\" /> s=<variable name=\"s\" /></output>  </subroutine>  <subroutine name=\"outer\" param-p=\"string\" param-q=\"string\">    <output>outer: p=<variable name=\"p\" /> q=<variable name=\"q\" /></output>    <inner r=\"$p\" s=\"$q\" />    <output>outer after inner: p=<variable name=\"p\" /> q=<variable name=\"q\" /></output>  </subroutine>  <defvar name=\"a\">x</defvar>  <defvar name=\"b\">y</defvar>  <defvar name=\"c\">z</defvar>  <output>main: a=<variable name=\"a\" /> b=<variable name=\"b\" /> c=<variable name=\"c\" /></output>  <outer p=\"$a\" q=\"$b\" />  <output>main after outer: a=<variable name=\"a\" /> b=<variable name=\"b\" /> c=<variable name=\"c\" /></output> </dirac>"}
+{"prompt": "In diraclang, Define base subroutine with age and gender, extend base to override age, and print age and gender.", "completion": "<dirac>  <subroutine name=\"base\">    <subroutine name=\"age\">      <output>60</output>    </subroutine>    <subroutine name=\"gender\">      <output>M</output>    </subroutine>    <parameters select=\"*\" />  </subroutine>  <subroutine name=\"base\" extends=\"base\">    <subroutine name=\"age\">      <output>63</output>    </subroutine>    <parameters select=\"*\" />  </subroutine>  <base><age /></base>  <output>,</output>  <base><gender /></base> </dirac>"}
+{"prompt": "In diraclang, Start a background process that counts, check file lines in a loop, verify completion, and clean up.", "completion": "<dirac>  <output>Testing background processes with loop...</output>  <system>rm -f /tmp/dirac-bg-counter.txt</system>  <system background=\"true\">(for i in 1 2 3 4 5; do echo \"Count: $i\"; sleep 1; done > /tmp/dirac-bg-counter.txt) &</system>  <output>✓ Background counter started</output>  <output>✓ DIRAC continuing without blocking</output>  <system>sleep 2</system>  <loop count=\"3\">    <system>wc -l /tmp/dirac-bg-counter.txt 2>/dev/null || echo \"0\"</system>    <output>Check: Background file now has lines</output>    <system>sleep 1</system>  </loop>  <system>sleep 2</system>  <system>wc -l /tmp/dirac-bg-counter.txt</system>  <output>✓ Background process completed</output>  <system>grep -c \"Count:\" /tmp/dirac-bg-counter.txt</system>  <output>✓ Found all count entries</output>  <system>rm -f /tmp/dirac-bg-counter.txt</system>  <output>✓ Background process with loop test passed</output> </dirac>"}
+{"prompt": "In diraclang, Print three lines: 'Line 1', 'Line 2', 'Line 3'.", "completion": "<dirac>  <output>Line 1</output>  <output>Line 2</output>  <output>Line 3</output> </dirac>"}
+{"prompt": "In diraclang, Define a variable 'status' as 'active' and print 'Match found' if status is active.", "completion": "<dirac>  <defvar name=\"status\" value=\"active\" />  <test-if test=\"$status == active\">    <output>Match found</output>  </test-if> </dirac>"}
+{"prompt": "Describe the Dirac language.", "completion": "Dirac is a declarative execution language designed for the AI era, where large language models act as autonomous agents. It bridges human-readable instructions with machine execution, allowing LLMs to generate, execute, and recursively call code for complex tasks."}
+{"prompt": "In diraclang, Print 'Hello, World!'", "completion": "<dirac>  <output>Hello, World!</output> </dirac>"}
+{"prompt": "In diraclang, If num is greater than 10, print 'Value is large'; otherwise, print 'Value is small'.", "completion": "<dirac>  <defvar name=\"num\" value=\"5\" />  <test-if test=\"$num > 10\">    <output>Value is large</output>  </test-if>  <test-if test=\"$num <= 10\">    <output>Value is small</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, Define a subroutine called greet that takes a name and prints 'Hello, name!' for Alice.", "completion": "<dirac>  <subroutine name=\"greet\" param-name=\"string\">    <output>Hello, <variable name=\"name\" />!</output>  </subroutine>    <greet name=\"Alice\" /> </dirac>"}
+{"prompt": "In diraclang, Define a variable myvar with value 'test123' and print 'Value is: test123'.", "completion": "<dirac>  <defvar name=\"myvar\" value=\"test123\" />  <output>Value is: <variable name=\"myvar\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Call the MATH_SQRT subroutine.", "completion": "<dirac>  <MATH_SQRT /> </dirac>"}
+{"prompt": "In diraclang, call the math_sqrt subroutine.", "completion": "<dirac>  <MATH_SQRT /> </dirac>"}
+{"prompt": "In diraclang, Call the MATH_STATS subroutine.", "completion": "<dirac>  <MATH_STATS /> </dirac>"}
+{"prompt": "In diraclang, call the math_stats subroutine.", "completion": "<dirac>  <MATH_STATS /> </dirac>"}
+{"prompt": "In diraclang, Call the MATH_RANDOM subroutine.", "completion": "<dirac>  <MATH_RANDOM /> </dirac>"}
+{"prompt": "In diraclang, call the math_random subroutine.", "completion": "<dirac>  <MATH_RANDOM /> </dirac>"}
+{"prompt": "In diraclang, Call the MATH_FACTORIAL subroutine.", "completion": "<dirac>  <MATH_FACTORIAL /> </dirac>"}
+{"prompt": "In diraclang, call the math_factorial subroutine.", "completion": "<dirac>  <MATH_FACTORIAL /> </dirac>"}
+{"prompt": "In diraclang, Call the MATH_GCD subroutine.", "completion": "<dirac>  <MATH_GCD /> </dirac>"}
+{"prompt": "In diraclang, call the math_gcd subroutine.", "completion": "<dirac>  <MATH_GCD /> </dirac>"}
+{"prompt": "In diraclang, Call the MATH_PRIME subroutine.", "completion": "<dirac>  <MATH_PRIME /> </dirac>"}
+{"prompt": "In diraclang, call the math_prime subroutine.", "completion": "<dirac>  <MATH_PRIME /> </dirac>"}
+{"prompt": "In diraclang, Call the LIST_FILES subroutine.", "completion": "<dirac>  <LIST_FILES /> </dirac>"}
+{"prompt": "In diraclang, call the list_files subroutine.", "completion": "<dirac>  <LIST_FILES /> </dirac>"}
+{"prompt": "In diraclang, Call the COUNT_FILES subroutine.", "completion": "<dirac>  <COUNT_FILES /> </dirac>"}
+{"prompt": "In diraclang, call the count_files subroutine.", "completion": "<dirac>  <COUNT_FILES /> </dirac>"}
+{"prompt": "In diraclang, Call the FILE_EXISTS subroutine.", "completion": "<dirac>  <FILE_EXISTS /> </dirac>"}
+{"prompt": "In diraclang, call the file_exists subroutine.", "completion": "<dirac>  <FILE_EXISTS /> </dirac>"}
+{"prompt": "In diraclang, Call the SQUARE subroutine.", "completion": "<dirac>  <SQUARE x=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, Call the ADD subroutine.", "completion": "<dirac>  <ADD a=\"42\" b=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, Call the FACTORIAL subroutine.", "completion": "<dirac>  <FACTORIAL num=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, a tag to access mongodb.", "completion": "<dirac>  <MONGODB database=\"mydb\" collection=\"users\" action=\"action\" limit=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, use MONGODB with database: the database name, collection: the collection name, action: the action need to take.", "completion": "<dirac>  <MONGODB database=\"mydb\" collection=\"users\" action=\"action\" limit=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, call MONGODB with parameters: database (the database name), collection (the collection name), action (the action need to take), limit (limit the number of records returned).", "completion": "<dirac>  <MONGODB database=\"mydb\" collection=\"users\" action=\"action\" limit=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, Call the SUBSTRING subroutine.", "completion": "<dirac>  <SUBSTRING str=\"str\" start=\"42\" length=\"length\" /> </dirac>"}
+{"prompt": "In diraclang, Call the REPLACE subroutine.", "completion": "<dirac>  <REPLACE str=\"str\" search=\"search\" replace=\"replace\" regex=\"regex\" /> </dirac>"}
+{"prompt": "In diraclang, Call the SPLIT subroutine.", "completion": "<dirac>  <SPLIT str=\"str\" delimiter=\"delimiter\" /> </dirac>"}
+{"prompt": "In diraclang, Call the JOIN subroutine.", "completion": "<dirac>  <JOIN items=\"items\" delimiter=\"delimiter\" /> </dirac>"}
+{"prompt": "In diraclang, Call the TRIM subroutine.", "completion": "<dirac>  <TRIM str=\"str\" /> </dirac>"}
+{"prompt": "In diraclang, Call the UPPERCASE subroutine.", "completion": "<dirac>  <UPPERCASE str=\"str\" /> </dirac>"}
+{"prompt": "In diraclang, Call the LOWERCASE subroutine.", "completion": "<dirac>  <LOWERCASE str=\"str\" /> </dirac>"}
+{"prompt": "In diraclang, Call the INDEXOF subroutine.", "completion": "<dirac>  <INDEXOF str=\"str\" search=\"search\" start=\"start\" /> </dirac>"}
+{"prompt": "In diraclang, Call the INCLUDES subroutine.", "completion": "<dirac>  <INCLUDES str=\"str\" search=\"search\" /> </dirac>"}
+{"prompt": "In diraclang, Call the LENGTH subroutine.", "completion": "<dirac>  <LENGTH str=\"str\" /> </dirac>"}
+{"prompt": "In diraclang, Call the CONCAT subroutine.", "completion": "<dirac>  <CONCAT str1=\"str1\" str2=\"str2\" /> </dirac>"}
+{"prompt": "In diraclang, Search and play a video on YouTube by title.", "completion": "<dirac>  <play-youtube title=\"123\" /> </dirac>"}
+{"prompt": "In diraclang, use play-youtube with title: The video title or search query.", "completion": "<dirac>  <play-youtube title=\"123\" /> </dirac>"}
+{"prompt": "In diraclang, call play-youtube with parameters: title (The video title or search query).", "completion": "<dirac>  <play-youtube title=\"123\" /> </dirac>"}
+{"prompt": "In diraclang, Search and play music on YouTube Music by title or artist.", "completion": "<dirac>  <play-youtube-music query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, use play-youtube-music with query: Song title, artist, or search query.", "completion": "<dirac>  <play-youtube-music query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, call play-youtube-music with parameters: query (Song title, artist, or search query).", "completion": "<dirac>  <play-youtube-music query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, Open any website URL in the default browser.", "completion": "<dirac>  <open-website url=\"https://example.com\" /> </dirac>"}
+{"prompt": "In diraclang, use open-website with url: The full URL to open (with https.", "completion": "<dirac>  <open-website url=\"https://example.com\" /> </dirac>"}
+{"prompt": "In diraclang, call open-website with parameters: url (The full URL to open (with https).", "completion": "<dirac>  <open-website url=\"https://example.com\" /> </dirac>"}
+{"prompt": "In diraclang, Call the HTTP_EXAMPLE subroutine.", "completion": "<dirac>  <HTTP_EXAMPLE /> </dirac>"}
+{"prompt": "In diraclang, call the http_example subroutine.", "completion": "<dirac>  <HTTP_EXAMPLE /> </dirac>"}
+{"prompt": "In diraclang, call the add subroutine.", "completion": "<dirac>  <ADD /> </dirac>"}
+{"prompt": "In diraclang, Call the MULTIPLY subroutine.", "completion": "<dirac>  <MULTIPLY /> </dirac>"}
+{"prompt": "In diraclang, call the multiply subroutine.", "completion": "<dirac>  <MULTIPLY /> </dirac>"}
+{"prompt": "In diraclang, Call the TEST subroutine.", "completion": "<dirac>  <TEST /> </dirac>"}
+{"prompt": "In diraclang, call the test subroutine.", "completion": "<dirac>  <TEST /> </dirac>"}
+{"prompt": "In diraclang, Call the A subroutine.", "completion": "<dirac>  <A /> </dirac>"}
+{"prompt": "In diraclang, call the a subroutine.", "completion": "<dirac>  <A /> </dirac>"}
+{"prompt": "In diraclang, Call the B subroutine.", "completion": "<dirac>  <B /> </dirac>"}
+{"prompt": "In diraclang, call the b subroutine.", "completion": "<dirac>  <B /> </dirac>"}
+{"prompt": "In diraclang, Call the greet subroutine.", "completion": "<dirac>  <greet /> </dirac>"}
+{"prompt": "In diraclang, call the greet subroutine.", "completion": "<dirac>  <greet /> </dirac>"}
+{"prompt": "In diraclang, set the background color..", "completion": "<dirac>  <background color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, use background with color: color name.", "completion": "<dirac>  <background color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, call background with parameters: color (color name).", "completion": "<dirac>  <background color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, Change the background color, do not generate other tags like <changeBackground /> use precise tag.", "completion": "<dirac>  <background color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, use background with color: Background color.", "completion": "<dirac>  <background color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, call background with parameters: color (Background color).", "completion": "<dirac>  <background color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, Adjust the text size.", "completion": "<dirac>  <set-text-size size=\"10\" /> </dirac>"}
+{"prompt": "In diraclang, use set-text-size with size: Font size.", "completion": "<dirac>  <set-text-size size=\"10\" /> </dirac>"}
+{"prompt": "In diraclang, call set-text-size with parameters: size (Font size).", "completion": "<dirac>  <set-text-size size=\"10\" /> </dirac>"}
+{"prompt": "In diraclang, Reset all styles to default.", "completion": "<dirac>  <reset-styles /> </dirac>"}
+{"prompt": "In diraclang, reset all styles to default.", "completion": "<dirac>  <reset-styles /> </dirac>"}
+{"prompt": "In diraclang, Change the text color.", "completion": "<dirac>  <text-color color=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, use text-color with color: Text color.", "completion": "<dirac>  <text-color color=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call text-color with parameters: color (Text color).", "completion": "<dirac>  <text-color color=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Simulate clicking a button.", "completion": "<dirac>  <click-button selector=\"selector\" /> </dirac>"}
+{"prompt": "In diraclang, call click-button with parameters: selector (CSS selector (default).", "completion": "<dirac>  <click-button selector=\"selector\" /> </dirac>"}
+{"prompt": "In diraclang, Type text into an input field.", "completion": "<dirac>  <type-text text=\"Hello World\" field=\"field\" /> </dirac>"}
+{"prompt": "In diraclang, use type-text with text: Text to type.", "completion": "<dirac>  <type-text text=\"Hello World\" field=\"field\" /> </dirac>"}
+{"prompt": "In diraclang, call type-text with parameters: text (Text to type), field (Which field).", "completion": "<dirac>  <type-text text=\"Hello World\" field=\"field\" /> </dirac>"}
+{"prompt": "In diraclang, Check or uncheck the terms checkbox.", "completion": "<dirac>  <check-terms checked=\"checked\" /> </dirac>"}
+{"prompt": "In diraclang, call check-terms with parameters: checked (Check state).", "completion": "<dirac>  <check-terms checked=\"checked\" /> </dirac>"}
+{"prompt": "In diraclang, Clear an input field.", "completion": "<dirac>  <clear-input field=\"field\" /> </dirac>"}
+{"prompt": "In diraclang, call clear-input with parameters: field (Which field).", "completion": "<dirac>  <clear-input field=\"field\" /> </dirac>"}
+{"prompt": "In diraclang, addition of two numbers.", "completion": "<dirac>  <add a=\"42\" b=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, use add with a: first argument, b: second argument.", "completion": "<dirac>  <add a=\"42\" b=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, call add with parameters: a (first argument), b (second argument).", "completion": "<dirac>  <add a=\"42\" b=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, addition of two numbers .", "completion": "<dirac>  <add a=\"42\" b=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, Call the print-message subroutine.", "completion": "<dirac>  <print-message text=\"text\" /> </dirac>"}
+{"prompt": "In diraclang, Call the getStockPrice subroutine.", "completion": "<dirac>  <getStockPrice /> </dirac>"}
+{"prompt": "In diraclang, call the getstockprice subroutine.", "completion": "<dirac>  <getStockPrice /> </dirac>"}
+{"prompt": "In diraclang, Show you the inventory.", "completion": "<dirac>  <inventory /> </dirac>"}
+{"prompt": "In diraclang, show you the inventory.", "completion": "<dirac>  <inventory /> </dirac>"}
+{"prompt": "In diraclang, Places an order for an item..", "completion": "<dirac>  <order item=\"item\" quantity=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, use order with item: Item name, quantity: Quantity.", "completion": "<dirac>  <order item=\"item\" quantity=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, call order with parameters: item (Item name), quantity (Quantity).", "completion": "<dirac>  <order item=\"item\" quantity=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, the llm routine.", "completion": "<dirac>  <llm execute=\"execute\" save-dialog=\"save-dialog\" /> </dirac>"}
+{"prompt": "In diraclang, Greet someone by name.", "completion": "<dirac>  <greet name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, use greet with name: The person's name.", "completion": "<dirac>  <greet name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, call greet with parameters: name (The person's name).", "completion": "<dirac>  <greet name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Calculate a simple math expression.", "completion": "<dirac>  <calculate expression=\"expression\" /> </dirac>"}
+{"prompt": "In diraclang, use calculate with expression: Math expression to calculate.", "completion": "<dirac>  <calculate expression=\"expression\" /> </dirac>"}
+{"prompt": "In diraclang, call calculate with parameters: expression (Math expression to calculate).", "completion": "<dirac>  <calculate expression=\"expression\" /> </dirac>"}
+{"prompt": "In diraclang, Sets the background color of the display.", "completion": "<dirac>  <set-background-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, use set-background-color with color: The color name like red, blue, green.", "completion": "<dirac>  <set-background-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, call set-background-color with parameters: color (The color name like red, blue, green).", "completion": "<dirac>  <set-background-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, Plays a sound effect.", "completion": "<dirac>  <play-sound sound=\"sound\" /> </dirac>"}
+{"prompt": "In diraclang, use play-sound with sound: Sound name like beep, chime, alert.", "completion": "<dirac>  <play-sound sound=\"sound\" /> </dirac>"}
+{"prompt": "In diraclang, call play-sound with parameters: sound (Sound name like beep, chime, alert).", "completion": "<dirac>  <play-sound sound=\"sound\" /> </dirac>"}
+{"prompt": "In diraclang, Display a message to the user.", "completion": "<dirac>  <show-message text=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, use show-message with text: The message text.", "completion": "<dirac>  <show-message text=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call show-message with parameters: text (The message text).", "completion": "<dirac>  <show-message text=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Call the MONGODB subroutine.", "completion": "<dirac>  <MONGODB /> </dirac>"}
+{"prompt": "In diraclang, call the mongodb subroutine.", "completion": "<dirac>  <MONGODB /> </dirac>"}
+{"prompt": "In diraclang, Call the PACKAGE_FINDING subroutine.", "completion": "<dirac>  <PACKAGE_FINDING query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, use PACKAGE_FINDING with query: search query for packages.", "completion": "<dirac>  <PACKAGE_FINDING query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, call PACKAGE_FINDING with parameters: query (search query for packages).", "completion": "<dirac>  <PACKAGE_FINDING query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, Test version of PACKAGE_FINDING with hardcoded results.", "completion": "<dirac>  <PACKAGE_FINDING_MOCK query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, use PACKAGE_FINDING_MOCK with query: search query for packages.", "completion": "<dirac>  <PACKAGE_FINDING_MOCK query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, call PACKAGE_FINDING_MOCK with parameters: query (search query for packages).", "completion": "<dirac>  <PACKAGE_FINDING_MOCK query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, Automatically discover, install, and import packages using semantic search.", "completion": "<dirac>  <PACKAGE_FINDING query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, Automatically discover, install, and import packages based on search query.", "completion": "<dirac>  <PACKAGE_FINDING query=\"search term\" /> </dirac>"}
+{"prompt": "In diraclang, Call the BOLD subroutine.", "completion": "<dirac>  <BOLD /> </dirac>"}
+{"prompt": "In diraclang, call the bold subroutine.", "completion": "<dirac>  <BOLD /> </dirac>"}
+{"prompt": "In diraclang, Call the ATTR_DEMO subroutine.", "completion": "<dirac>  <ATTR_DEMO /> </dirac>"}
+{"prompt": "In diraclang, call the attr_demo subroutine.", "completion": "<dirac>  <ATTR_DEMO /> </dirac>"}
+{"prompt": "In diraclang, Call the INSPECT subroutine.", "completion": "<dirac>  <INSPECT /> </dirac>"}
+{"prompt": "In diraclang, call the inspect subroutine.", "completion": "<dirac>  <INSPECT /> </dirac>"}
+{"prompt": "In diraclang, Call the UL subroutine.", "completion": "<dirac>  <UL /> </dirac>"}
+{"prompt": "In diraclang, call the ul subroutine.", "completion": "<dirac>  <UL /> </dirac>"}
+{"prompt": "In diraclang, Call the LI subroutine.", "completion": "<dirac>  <LI /> </dirac>"}
+{"prompt": "In diraclang, call the li subroutine.", "completion": "<dirac>  <LI /> </dirac>"}
+{"prompt": "In diraclang, Call the greetmeta subroutine.", "completion": "<dirac>  <greetmeta name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, use greetmeta with name: name of the person.", "completion": "<dirac>  <greetmeta name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, call greetmeta with parameters: name (name of the person).", "completion": "<dirac>  <greetmeta name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Call the GET_FILE_COUNT subroutine.", "completion": "<dirac>  <GET_FILE_COUNT /> </dirac>"}
+{"prompt": "In diraclang, call the get_file_count subroutine.", "completion": "<dirac>  <GET_FILE_COUNT /> </dirac>"}
+{"prompt": "In diraclang, Call the GET_FILE_NAMES subroutine.", "completion": "<dirac>  <GET_FILE_NAMES /> </dirac>"}
+{"prompt": "In diraclang, call the get_file_names subroutine.", "completion": "<dirac>  <GET_FILE_NAMES /> </dirac>"}
+{"prompt": "In diraclang, Call the ANALYZE_DEEPER subroutine.", "completion": "<dirac>  <ANALYZE_DEEPER /> </dirac>"}
+{"prompt": "In diraclang, call the analyze_deeper subroutine.", "completion": "<dirac>  <ANALYZE_DEEPER /> </dirac>"}
+{"prompt": "In diraclang, Call the STR_UPPERCASE subroutine.", "completion": "<dirac>  <STR_UPPERCASE /> </dirac>"}
+{"prompt": "In diraclang, call the str_uppercase subroutine.", "completion": "<dirac>  <STR_UPPERCASE /> </dirac>"}
+{"prompt": "In diraclang, Call the STR_LOWERCASE subroutine.", "completion": "<dirac>  <STR_LOWERCASE /> </dirac>"}
+{"prompt": "In diraclang, call the str_lowercase subroutine.", "completion": "<dirac>  <STR_LOWERCASE /> </dirac>"}
+{"prompt": "In diraclang, Call the STR_TRIM subroutine.", "completion": "<dirac>  <STR_TRIM /> </dirac>"}
+{"prompt": "In diraclang, call the str_trim subroutine.", "completion": "<dirac>  <STR_TRIM /> </dirac>"}
+{"prompt": "In diraclang, Call the STR_SUBSTRING subroutine.", "completion": "<dirac>  <STR_SUBSTRING /> </dirac>"}
+{"prompt": "In diraclang, call the str_substring subroutine.", "completion": "<dirac>  <STR_SUBSTRING /> </dirac>"}
+{"prompt": "In diraclang, Call the STR_REPLACE subroutine.", "completion": "<dirac>  <STR_REPLACE /> </dirac>"}
+{"prompt": "In diraclang, call the str_replace subroutine.", "completion": "<dirac>  <STR_REPLACE /> </dirac>"}
+{"prompt": "In diraclang, Call the STR_SPLIT subroutine.", "completion": "<dirac>  <STR_SPLIT /> </dirac>"}
+{"prompt": "In diraclang, call the str_split subroutine.", "completion": "<dirac>  <STR_SPLIT /> </dirac>"}
+{"prompt": "In diraclang, Call the STR_LENGTH subroutine.", "completion": "<dirac>  <STR_LENGTH /> </dirac>"}
+{"prompt": "In diraclang, call the str_length subroutine.", "completion": "<dirac>  <STR_LENGTH /> </dirac>"}
+{"prompt": "In diraclang, Call the outer-sub subroutine.", "completion": "<dirac>  <outer-sub x=\"x\" y=\"y\" /> </dirac>"}
+{"prompt": "In diraclang, Call the inner-sub subroutine.", "completion": "<dirac>  <inner-sub p=\"p\" q=\"q\" /> </dirac>"}
+{"prompt": "In diraclang, Call the first-sub subroutine.", "completion": "<dirac>  <first-sub x=\"x\" y=\"y\" /> </dirac>"}
+{"prompt": "In diraclang, Call the second-sub subroutine.", "completion": "<dirac>  <second-sub x=\"x\" y=\"y\" z=\"z\" /> </dirac>"}
+{"prompt": "In diraclang, Call the CALC subroutine.", "completion": "<dirac>  <CALC /> </dirac>"}
+{"prompt": "In diraclang, call the calc subroutine.", "completion": "<dirac>  <CALC /> </dirac>"}
+{"prompt": "In diraclang, Call the NESTED subroutine.", "completion": "<dirac>  <NESTED /> </dirac>"}
+{"prompt": "In diraclang, call the nested subroutine.", "completion": "<dirac>  <NESTED /> </dirac>"}
+{"prompt": "In diraclang, Call the GREET subroutine.", "completion": "<dirac>  <GREET /> </dirac>"}
+{"prompt": "In diraclang, call the square subroutine.", "completion": "<dirac>  <SQUARE /> </dirac>"}
+{"prompt": "In diraclang, Call the SHOW_ATTRS subroutine.", "completion": "<dirac>  <SHOW_ATTRS /> </dirac>"}
+{"prompt": "In diraclang, call the show_attrs subroutine.", "completion": "<dirac>  <SHOW_ATTRS /> </dirac>"}
+{"prompt": "In diraclang, Call the LIST subroutine.", "completion": "<dirac>  <LIST /> </dirac>"}
+{"prompt": "In diraclang, call the list subroutine.", "completion": "<dirac>  <LIST /> </dirac>"}
+{"prompt": "In diraclang, Call the test-greet subroutine.", "completion": "<dirac>  <test-greet name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Call the PARENT subroutine.", "completion": "<dirac>  <PARENT /> </dirac>"}
+{"prompt": "In diraclang, call the parent subroutine.", "completion": "<dirac>  <PARENT /> </dirac>"}
+{"prompt": "In diraclang, Call the C subroutine.", "completion": "<dirac>  <C /> </dirac>"}
+{"prompt": "In diraclang, call the c subroutine.", "completion": "<dirac>  <C /> </dirac>"}
+{"prompt": "In diraclang, A test helper subroutine.", "completion": "<dirac>  <TEST_HELPER message=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, use TEST_HELPER with message: message to display.", "completion": "<dirac>  <TEST_HELPER message=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call TEST_HELPER with parameters: message (message to display).", "completion": "<dirac>  <TEST_HELPER message=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Call the PACKAGE_WITHOUT_VISIBLE subroutine.", "completion": "<dirac>  <PACKAGE_WITHOUT_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, call the package_without_visible subroutine.", "completion": "<dirac>  <PACKAGE_WITHOUT_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, Call the HELPER_NO_VIS subroutine.", "completion": "<dirac>  <HELPER_NO_VIS /> </dirac>"}
+{"prompt": "In diraclang, call the helper_no_vis subroutine.", "completion": "<dirac>  <HELPER_NO_VIS /> </dirac>"}
+{"prompt": "In diraclang, Call the PACKAGE_WITH_VISIBLE subroutine.", "completion": "<dirac>  <PACKAGE_WITH_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, call the package_with_visible subroutine.", "completion": "<dirac>  <PACKAGE_WITH_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, Get array length.", "completion": "<dirac>  <ARRAY_LENGTH /> </dirac>"}
+{"prompt": "In diraclang, get array length.", "completion": "<dirac>  <ARRAY_LENGTH /> </dirac>"}
+{"prompt": "In diraclang, Push to array.", "completion": "<dirac>  <ARRAY_PUSH /> </dirac>"}
+{"prompt": "In diraclang, push to array.", "completion": "<dirac>  <ARRAY_PUSH /> </dirac>"}
+{"prompt": "In diraclang, Call the test subroutine.", "completion": "<dirac>  <test color=\"color\" /> </dirac>"}
+{"prompt": "In diraclang, use test with color: string.", "completion": "<dirac>  <test color=\"color\" /> </dirac>"}
+{"prompt": "In diraclang, Call the test2 subroutine.", "completion": "<dirac>  <test2 color=\"color\" /> </dirac>"}
+{"prompt": "In diraclang, use test2 with color: string.", "completion": "<dirac>  <test2 color=\"color\" /> </dirac>"}
+{"prompt": "In diraclang, Search and play a video on YouTube.", "completion": "<dirac>  <play-youtube title=\"123\" /> </dirac>"}
+{"prompt": "In diraclang, Call the ai subroutine.", "completion": "<dirac>  <ai /> </dirac>"}
+{"prompt": "In diraclang, call the ai subroutine.", "completion": "<dirac>  <ai /> </dirac>"}
+{"prompt": "In diraclang, Define a new variable with optional visibility.", "completion": "<dirac>  <defvar name=\"name\" value=\"Hello World\" visible=\"visible\" literal=\"literal\" trim=\"trim\" /> </dirac>"}
+{"prompt": "In diraclang, use defvar with name: Variable name.", "completion": "<dirac>  <defvar name=\"name\" value=\"Hello World\" visible=\"visible\" literal=\"literal\" trim=\"trim\" /> </dirac>"}
+{"prompt": "In diraclang, call defvar with parameters: name (Variable name), value (Initial value (or use children/text)), visible (Visibility flag|true|false|variable|both), literal (Store children as literal XML without execution), trim (Trim whitespace from value|true|false).", "completion": "<dirac>  <defvar name=\"name\" value=\"Hello World\" visible=\"visible\" literal=\"literal\" trim=\"trim\" /> </dirac>"}
+{"prompt": "In diraclang, Assign new value to existing variable.", "completion": "<dirac>  <assign name=\"name\" value=\"Hello World\" trim=\"trim\" /> </dirac>"}
+{"prompt": "In diraclang, use assign with name: Variable name to update.", "completion": "<dirac>  <assign name=\"name\" value=\"Hello World\" trim=\"trim\" /> </dirac>"}
+{"prompt": "In diraclang, call assign with parameters: name (Variable name to update), value (New value (or use children/text)), trim (Trim whitespace from value|true|false).", "completion": "<dirac>  <assign name=\"name\" value=\"Hello World\" trim=\"trim\" /> </dirac>"}
+{"prompt": "In diraclang, Retrieve and output variable value.", "completion": "<dirac>  <variable name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, use variable with name: Variable name to retrieve.", "completion": "<dirac>  <variable name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, call variable with parameters: name (Variable name to retrieve).", "completion": "<dirac>  <variable name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Read environment variable value.", "completion": "<dirac>  <environment name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, use environment with name: Environment variable name.", "completion": "<dirac>  <environment name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, call environment with parameters: name (Environment variable name).", "completion": "<dirac>  <environment name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Emit content to stdout or file.", "completion": "<dirac>  <output file=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call output with parameters: file (File path for writing output).", "completion": "<dirac>  <output file=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Read from stdin or file.", "completion": "<dirac>  <input source=\"/path/to/file\" mode=\"mode\" path=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, use input with source: Input source|stdin|file.", "completion": "<dirac>  <input source=\"/path/to/file\" mode=\"mode\" path=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call input with parameters: source (Input source|stdin|file), mode (Reading mode (default), path (File path (required when source=file)).", "completion": "<dirac>  <input source=\"/path/to/file\" mode=\"mode\" path=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Conditional execution with cond/then/else children.", "completion": "<dirac>  <if /> </dirac>"}
+{"prompt": "In diraclang, conditional execution with cond/then/else children.", "completion": "<dirac>  <if /> </dirac>"}
+{"prompt": "In diraclang, Attribute-based conditional execution.", "completion": "<dirac>  <test-if test=\"test\" eq=\"eq\" ne=\"ne\" lt=\"lt\" gt=\"gt\" le=\"le\" ge=\"ge\" /> </dirac>"}
+{"prompt": "In diraclang, use test-if with test: Value or expression to test.", "completion": "<dirac>  <test-if test=\"test\" eq=\"eq\" ne=\"ne\" lt=\"lt\" gt=\"gt\" le=\"le\" ge=\"ge\" /> </dirac>"}
+{"prompt": "In diraclang, call test-if with parameters: test (Value or expression to test), eq (Compare equal to value), ne (Compare not equal to value), lt (Compare less than (numeric)), gt (Compare greater than (numeric)), le (Compare less than or equal (numeric)), ge (Compare greater than or equal (numeric)).", "completion": "<dirac>  <test-if test=\"test\" eq=\"eq\" ne=\"ne\" lt=\"lt\" gt=\"gt\" le=\"le\" ge=\"ge\" /> </dirac>"}
+{"prompt": "In diraclang, Iterate fixed number of times.", "completion": "<dirac>  <loop count=\"8080\" var=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, use loop with count: Number of iterations (supports variable substitution).", "completion": "<dirac>  <loop count=\"8080\" var=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, call loop with parameters: count (Number of iterations (supports variable substitution)), var (Loop counter variable name (default).", "completion": "<dirac>  <loop count=\"8080\" var=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, Iterate over XML elements.", "completion": "<dirac>  <foreach from=\"from\" as=\"as\" xpath=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, use foreach with from: XML content or variable (starts with $ or <).", "completion": "<dirac>  <foreach from=\"from\" as=\"as\" xpath=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call foreach with parameters: from (XML content or variable (starts with $ or <)), as (Iterator variable name (default), xpath (XPath filter for elements).", "completion": "<dirac>  <foreach from=\"from\" as=\"as\" xpath=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Exit current loop or foreach iteration.", "completion": "<dirac>  <break /> </dirac>"}
+{"prompt": "In diraclang, exit current loop or foreach iteration.", "completion": "<dirac>  <break /> </dirac>"}
+{"prompt": "In diraclang, Arithmetic and logical operations.", "completion": "<dirac>  <expr eval=\"eval\" op=\"op\" /> </dirac>"}
+{"prompt": "In diraclang, use expr with eval: Operation to perform.", "completion": "<dirac>  <expr eval=\"eval\" op=\"op\" /> </dirac>"}
+{"prompt": "In diraclang, call expr with parameters: eval (Operation to perform), op (Alias for eval attribute).", "completion": "<dirac>  <expr eval=\"eval\" op=\"op\" /> </dirac>"}
+{"prompt": "In diraclang, Evaluate JavaScript expression with full context.", "completion": "<dirac>  <eval name=\"name\" expr=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call eval with parameters: name (Variable name to store result), expr (JavaScript code (or use text content)).", "completion": "<dirac>  <eval name=\"name\" expr=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Define reusable code block.", "completion": "<dirac>  <subroutine name=\"name\" description=\"description\" visible=\"visible\" extend=\"extend\" extends=\"extends\" /> </dirac>"}
+{"prompt": "In diraclang, use subroutine with name: Subroutine name.", "completion": "<dirac>  <subroutine name=\"name\" description=\"description\" visible=\"visible\" extend=\"extend\" extends=\"extends\" /> </dirac>"}
+{"prompt": "In diraclang, call subroutine with parameters: name (Subroutine name), description (Human-readable description), visible (Visibility setting|subroutine|variable|both), extend (Parent subroutine to extend), extends (Alias for extend).", "completion": "<dirac>  <subroutine name=\"name\" description=\"description\" visible=\"visible\" extend=\"extend\" extends=\"extends\" /> </dirac>"}
+{"prompt": "In diraclang, Invoke defined subroutine.", "completion": "<dirac>  <call name=\"name\" subroutine=\"subroutine\" /> </dirac>"}
+{"prompt": "In diraclang, use call with name: Subroutine name to call.", "completion": "<dirac>  <call name=\"name\" subroutine=\"subroutine\" /> </dirac>"}
+{"prompt": "In diraclang, call call with parameters: name (Subroutine name to call), subroutine (Alias for name attribute).", "completion": "<dirac>  <call name=\"name\" subroutine=\"subroutine\" /> </dirac>"}
+{"prompt": "In diraclang, Access parameters passed to subroutine.", "completion": "<dirac>  <parameters select=\"select\" /> </dirac>"}
+{"prompt": "In diraclang, use parameters with select: Parameter selector.", "completion": "<dirac>  <parameters select=\"select\" /> </dirac>"}
+{"prompt": "In diraclang, call parameters with parameters: select (Parameter selector).", "completion": "<dirac>  <parameters select=\"select\" /> </dirac>"}
+{"prompt": "In diraclang, List all registered subroutines as XML.", "completion": "<dirac>  <available-subroutines /> </dirac>"}
+{"prompt": "In diraclang, list all registered subroutines as xml.", "completion": "<dirac>  <available-subroutines /> </dirac>"}
+{"prompt": "In diraclang, List subroutines in specified format.", "completion": "<dirac>  <list-subroutines format=\"format\" output=\"output\" /> </dirac>"}
+{"prompt": "In diraclang, call list-subroutines with parameters: format (Output format (default), output (Variable name to store result).", "completion": "<dirac>  <list-subroutines format=\"format\" output=\"output\" /> </dirac>"}
+{"prompt": "In diraclang, Save subroutine definition to disk.", "completion": "<dirac>  <save-subroutine name=\"name\" file=\"/path/to/file\" path=\"/path/to/dir\" format=\"format\" /> </dirac>"}
+{"prompt": "In diraclang, use save-subroutine with name: Subroutine name to save.", "completion": "<dirac>  <save-subroutine name=\"name\" file=\"/path/to/file\" path=\"/path/to/dir\" format=\"format\" /> </dirac>"}
+{"prompt": "In diraclang, call save-subroutine with parameters: name (Subroutine name to save), file (Explicit file path), path (Directory name under ~/.dirac/lib/), format (Output format (default).", "completion": "<dirac>  <save-subroutine name=\"name\" file=\"/path/to/file\" path=\"/path/to/dir\" format=\"format\" /> </dirac>"}
+{"prompt": "In diraclang, Search and manage subroutine knowledge base.", "completion": "<dirac>  <subroutine-index path=\"/path/to/dir\" query=\"search term\" limit=\"limit\" output=\"output\" format=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call subroutine-index with parameters: path (Directory to index or search), query (Natural language search query), limit (Maximum results to return), output (Variable name to store results), format (Output format|text|json).", "completion": "<dirac>  <subroutine-index path=\"/path/to/dir\" query=\"search term\" limit=\"limit\" output=\"output\" format=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Execute dynamically generated DIRAC code.", "completion": "<dirac>  <execute source=\"source\" /> </dirac>"}
+{"prompt": "In diraclang, call execute with parameters: source (Variable containing DIRAC code).", "completion": "<dirac>  <execute source=\"source\" /> </dirac>"}
+{"prompt": "In diraclang, Execute shell commands.", "completion": "<dirac>  <system background=\"background\" /> </dirac>"}
+{"prompt": "In diraclang, call system with parameters: background (Run in background without waiting|true|false).", "completion": "<dirac>  <system background=\"background\" /> </dirac>"}
+{"prompt": "In diraclang, Import subroutines from other DIRAC files.", "completion": "<dirac>  <import src=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, use import with src: File path or package name.", "completion": "<dirac>  <import src=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call import with parameters: src (File path or package name).", "completion": "<dirac>  <import src=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Load Node.js module into variable.", "completion": "<dirac>  <require_module name=\"8080\" var=\"var\" /> </dirac>"}
+{"prompt": "In diraclang, use require_module with name: Module name to import.", "completion": "<dirac>  <require_module name=\"8080\" var=\"var\" /> </dirac>"}
+{"prompt": "In diraclang, call require_module with parameters: name (Module name to import), var (Variable name to store module (defaults to name)).", "completion": "<dirac>  <require_module name=\"8080\" var=\"var\" /> </dirac>"}
+{"prompt": "In diraclang, Invoke Large Language Model with validation.", "completion": "<dirac>  <llm model=\"model\" output=\"output\" context=\"Hello World\" save-dialog=\"save-dialog\" execute=\"execute\" temperature=\"temperature\" maxTokens=\"token_abc\" noextra=\"Hello World\" validate=\"123\" autocorrect=\"123\" max-retries=\"123\" feedback=\"123\" max-iterations=\"max-iterations\" replace-tick=\"replace-tick\" /> </dirac>"}
+{"prompt": "In diraclang, call llm with parameters: model (Model name or use DEFAULT_MODEL env var), output (Variable to store result), context (Context variable for RAG), save-dialog (Enable dialog persistence|true|false), execute (Execute generated code immediately|true|false), temperature (Sampling temperature (default), maxTokens (Maximum tokens to generate (default), noextra (Skip extra context injection|true|false), validate (Validate generated DIRAC tags|true|false), autocorrect (Auto-fix validation errors|true|false), max-retries (Validation retry attempts (default), feedback (Enable validation feedback loop|true|false), max-iterations (Max feedback iterations (default), replace-tick (Replace backticks in code|true|false).", "completion": "<dirac>  <llm model=\"model\" output=\"output\" context=\"Hello World\" save-dialog=\"save-dialog\" execute=\"execute\" temperature=\"temperature\" maxTokens=\"token_abc\" noextra=\"Hello World\" validate=\"123\" autocorrect=\"123\" max-retries=\"123\" feedback=\"123\" max-iterations=\"max-iterations\" replace-tick=\"replace-tick\" /> </dirac>"}
+{"prompt": "In diraclang, Load subroutine definitions as LLM context.", "completion": "<dirac>  <load-context limit=\"limit\" import=\"8080\" output=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call load-context with parameters: limit (Maximum subroutines to include), import (Also import subroutines (default), output (Variable to store context text).", "completion": "<dirac>  <load-context limit=\"limit\" import=\"8080\" output=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Establish exception boundary.", "completion": "<dirac>  <try /> </dirac>"}
+{"prompt": "In diraclang, establish exception boundary.", "completion": "<dirac>  <try /> </dirac>"}
+{"prompt": "In diraclang, Catch exceptions by name.", "completion": "<dirac>  <catch name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, call catch with parameters: name (Exception name to catch (default).", "completion": "<dirac>  <catch name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Throw named exception.", "completion": "<dirac>  <throw name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, call throw with parameters: name (Exception name (default).", "completion": "<dirac>  <throw name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Access caught exception content.", "completion": "<dirac>  <exception name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, call exception with parameters: name (Exception variable name).", "completion": "<dirac>  <exception name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Extract attribute from XML element.", "completion": "<dirac>  <attr name=\"name\" from=\"from\" /> </dirac>"}
+{"prompt": "In diraclang, use attr with name: Attribute name to extract, from: Variable containing XML element.", "completion": "<dirac>  <attr name=\"name\" from=\"from\" /> </dirac>"}
+{"prompt": "In diraclang, call attr with parameters: name (Attribute name to extract), from (Variable containing XML element).", "completion": "<dirac>  <attr name=\"name\" from=\"from\" /> </dirac>"}
+{"prompt": "In diraclang, Run tasks on interval without blocking.", "completion": "<dirac>  <schedule interval=\"interval\" name=\"123\" /> </dirac>"}
+{"prompt": "In diraclang, use schedule with interval: Seconds between executions.", "completion": "<dirac>  <schedule interval=\"interval\" name=\"123\" /> </dirac>"}
+{"prompt": "In diraclang, call schedule with parameters: interval (Seconds between executions), name (Task identifier for logging).", "completion": "<dirac>  <schedule interval=\"interval\" name=\"123\" /> </dirac>"}
+{"prompt": "In diraclang, MongoDB database operations.", "completion": "<dirac>  <mongodb connection=\"connection\" database=\"mydb\" collection=\"users\" operation=\"operation\" query=\"search term\" document=\"document\" output=\"output\" /> </dirac>"}
+{"prompt": "In diraclang, use mongodb with connection: MongoDB connection string, database: Database name, collection: Collection name, operation: Operation to perform|insert|find|update|delete.", "completion": "<dirac>  <mongodb connection=\"connection\" database=\"mydb\" collection=\"users\" operation=\"operation\" query=\"search term\" document=\"document\" output=\"output\" /> </dirac>"}
+{"prompt": "In diraclang, call mongodb with parameters: connection (MongoDB connection string), database (Database name), collection (Collection name), operation (Operation to perform|insert|find|update|delete), query (Query document (JSON)), document (Document to insert/update (JSON)), output (Variable to store results).", "completion": "<dirac>  <mongodb connection=\"connection\" database=\"mydb\" collection=\"users\" operation=\"operation\" query=\"search term\" document=\"document\" output=\"output\" /> </dirac>"}
+{"prompt": "In diraclang, Validate tag name availability.", "completion": "<dirac>  <tag-check /> </dirac>"}
+{"prompt": "In diraclang, validate tag name availability.", "completion": "<dirac>  <tag-check /> </dirac>"}
+{"prompt": "In diraclang, List some items.", "completion": "<dirac>  <list-items /> </dirac>"}
+{"prompt": "In diraclang, list some items.", "completion": "<dirac>  <list-items /> </dirac>"}
+{"prompt": "In diraclang, List users.", "completion": "<dirac>  <list-users /> </dirac>"}
+{"prompt": "In diraclang, list users.", "completion": "<dirac>  <list-users /> </dirac>"}
+{"prompt": "In diraclang, List files.", "completion": "<dirac>  <list-files /> </dirac>"}
+{"prompt": "In diraclang, list files.", "completion": "<dirac>  <list-files /> </dirac>"}
+{"prompt": "In diraclang, Load data.", "completion": "<dirac>  <load-data /> </dirac>"}
+{"prompt": "In diraclang, load data.", "completion": "<dirac>  <load-data /> </dirac>"}
+{"prompt": "In diraclang, Call the Base subroutine.", "completion": "<dirac>  <Base /> </dirac>"}
+{"prompt": "In diraclang, call the base subroutine.", "completion": "<dirac>  <Base /> </dirac>"}
+{"prompt": "In diraclang, Base method 1.", "completion": "<dirac>  <method1 /> </dirac>"}
+{"prompt": "In diraclang, base method 1.", "completion": "<dirac>  <method1 /> </dirac>"}
+{"prompt": "In diraclang, Base method 2.", "completion": "<dirac>  <method2 /> </dirac>"}
+{"prompt": "In diraclang, base method 2.", "completion": "<dirac>  <method2 /> </dirac>"}
+{"prompt": "In diraclang, Override method 1.", "completion": "<dirac>  <method1 /> </dirac>"}
+{"prompt": "In diraclang, override method 1.", "completion": "<dirac>  <method1 /> </dirac>"}
+{"prompt": "In diraclang, New method 3.", "completion": "<dirac>  <method3 /> </dirac>"}
+{"prompt": "In diraclang, new method 3.", "completion": "<dirac>  <method3 /> </dirac>"}
+{"prompt": "In diraclang, Call the Test subroutine.", "completion": "<dirac>  <Test /> </dirac>"}
+{"prompt": "In diraclang, Call the nested1 subroutine.", "completion": "<dirac>  <nested1 /> </dirac>"}
+{"prompt": "In diraclang, call the nested1 subroutine.", "completion": "<dirac>  <nested1 /> </dirac>"}
+{"prompt": "In diraclang, Represents a person with age and gender.", "completion": "<dirac>  <Person /> </dirac>"}
+{"prompt": "In diraclang, represents a person with age and gender.", "completion": "<dirac>  <Person /> </dirac>"}
+{"prompt": "In diraclang, Call the age subroutine.", "completion": "<dirac>  <age value=\"value\" /> </dirac>"}
+{"prompt": "In diraclang, use age with value: Age of the person.", "completion": "<dirac>  <age value=\"value\" /> </dirac>"}
+{"prompt": "In diraclang, call age with parameters: value (Age of the person).", "completion": "<dirac>  <age value=\"value\" /> </dirac>"}
+{"prompt": "In diraclang, Call the gender subroutine.", "completion": "<dirac>  <gender type=\"type\" /> </dirac>"}
+{"prompt": "In diraclang, call gender with parameters: type (Gender M/F).", "completion": "<dirac>  <gender type=\"type\" /> </dirac>"}
+{"prompt": "In diraclang, Call the parent subroutine.", "completion": "<dirac>  <parent /> </dirac>"}
+{"prompt": "In diraclang, Call the nested subroutine.", "completion": "<dirac>  <nested /> </dirac>"}
+{"prompt": "In diraclang, Call the child subroutine.", "completion": "<dirac>  <child /> </dirac>"}
+{"prompt": "In diraclang, call the child subroutine.", "completion": "<dirac>  <child /> </dirac>"}
+{"prompt": "In diraclang, Call the who subroutine.", "completion": "<dirac>  <who /> </dirac>"}
+{"prompt": "In diraclang, call the who subroutine.", "completion": "<dirac>  <who /> </dirac>"}
+{"prompt": "In diraclang, Call the _operation subroutine.", "completion": "<dirac>  <_operation /> </dirac>"}
+{"prompt": "In diraclang, call the _operation subroutine.", "completion": "<dirac>  <_operation /> </dirac>"}
+{"prompt": "In diraclang, call the age subroutine.", "completion": "<dirac>  <age /> </dirac>"}
+{"prompt": "In diraclang, Call the person subroutine.", "completion": "<dirac>  <person /> </dirac>"}
+{"prompt": "In diraclang, call the person subroutine.", "completion": "<dirac>  <person /> </dirac>"}
+{"prompt": "In diraclang, Call the Zhi subroutine.", "completion": "<dirac>  <Zhi /> </dirac>"}
+{"prompt": "In diraclang, call the zhi subroutine.", "completion": "<dirac>  <Zhi /> </dirac>"}
+{"prompt": "In diraclang, call the gender subroutine.", "completion": "<dirac>  <gender /> </dirac>"}
+{"prompt": "In diraclang, Call the factorial subroutine.", "completion": "<dirac>  <factorial num=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, Sets the foreground text color.", "completion": "<dirac>  <set-foreground-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, use set-foreground-color with color: The color name.", "completion": "<dirac>  <set-foreground-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, call set-foreground-color with parameters: color (The color name).", "completion": "<dirac>  <set-foreground-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, Call the greeting subroutine.", "completion": "<dirac>  <greeting name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Call the add subroutine.", "completion": "<dirac>  <add x=\"42\" y=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, Call the TestSuite subroutine.", "completion": "<dirac>  <TestSuite /> </dirac>"}
+{"prompt": "In diraclang, call the testsuite subroutine.", "completion": "<dirac>  <TestSuite /> </dirac>"}
+{"prompt": "In diraclang, Returns the person age.", "completion": "<dirac>  <age /> </dirac>"}
+{"prompt": "In diraclang, returns the person age.", "completion": "<dirac>  <age /> </dirac>"}
+{"prompt": "In diraclang, Returns gender identity.", "completion": "<dirac>  <gender /> </dirac>"}
+{"prompt": "In diraclang, returns gender identity.", "completion": "<dirac>  <gender /> </dirac>"}
+{"prompt": "In diraclang, Greets someone.", "completion": "<dirac>  <greet /> </dirac>"}
+{"prompt": "In diraclang, greets someone.", "completion": "<dirac>  <greet /> </dirac>"}
+{"prompt": "In diraclang, Call the square subroutine.", "completion": "<dirac>  <square x=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, Call the data subroutine.", "completion": "<dirac>  <data /> </dirac>"}
+{"prompt": "In diraclang, call the data subroutine.", "completion": "<dirac>  <data /> </dirac>"}
+{"prompt": "In diraclang, Call the field1 subroutine.", "completion": "<dirac>  <field1 /> </dirac>"}
+{"prompt": "In diraclang, call the field1 subroutine.", "completion": "<dirac>  <field1 /> </dirac>"}
+{"prompt": "In diraclang, Call the field2 subroutine.", "completion": "<dirac>  <field2 /> </dirac>"}
+{"prompt": "In diraclang, call the field2 subroutine.", "completion": "<dirac>  <field2 /> </dirac>"}
+{"prompt": "In diraclang, Call the field3 subroutine.", "completion": "<dirac>  <field3 /> </dirac>"}
+{"prompt": "In diraclang, call the field3 subroutine.", "completion": "<dirac>  <field3 /> </dirac>"}
+{"prompt": "In diraclang, Call the base subroutine.", "completion": "<dirac>  <base /> </dirac>"}
+{"prompt": "In diraclang, use greet with name: string.", "completion": "<dirac>  <greet name=\"name\" /> </dirac>"}
+{"prompt": "In diraclang, Call the DOUBLE subroutine.", "completion": "<dirac>  <DOUBLE x=\"42\" /> </dirac>"}
+{"prompt": "In diraclang, Set a background color.", "completion": "<dirac>  <set-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, use set-color with color: Color name.", "completion": "<dirac>  <set-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, call set-color with parameters: color (Color name).", "completion": "<dirac>  <set-color color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, Call the fullname subroutine.", "completion": "<dirac>  <fullname first=\"first\" last=\"last\" /> </dirac>"}
+{"prompt": "In diraclang, Call the inner subroutine.", "completion": "<dirac>  <inner r=\"r\" s=\"s\" /> </dirac>"}
+{"prompt": "In diraclang, Call the outer subroutine.", "completion": "<dirac>  <outer p=\"p\" q=\"q\" /> </dirac>"}
+{"prompt": "In diraclang, Change the background color.", "completion": "<dirac>  <background color=\"blue\" /> </dirac>"}
+{"prompt": "In diraclang, Change the foreground text color.", "completion": "<dirac>  <foreground color=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, use foreground with color: Text color.", "completion": "<dirac>  <foreground color=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call foreground with parameters: color (Text color).", "completion": "<dirac>  <foreground color=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Call the PARENT_WITHOUT_VISIBLE subroutine.", "completion": "<dirac>  <PARENT_WITHOUT_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, call the parent_without_visible subroutine.", "completion": "<dirac>  <PARENT_WITHOUT_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, Call the SHOULD_BE_CLEANED subroutine.", "completion": "<dirac>  <SHOULD_BE_CLEANED /> </dirac>"}
+{"prompt": "In diraclang, call the should_be_cleaned subroutine.", "completion": "<dirac>  <SHOULD_BE_CLEANED /> </dirac>"}
+{"prompt": "In diraclang, Call the PARENT_WITH_VISIBLE subroutine.", "completion": "<dirac>  <PARENT_WITH_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, call the parent_with_visible subroutine.", "completion": "<dirac>  <PARENT_WITH_VISIBLE /> </dirac>"}
+{"prompt": "In diraclang, Call the NESTED_HELPER subroutine.", "completion": "<dirac>  <NESTED_HELPER /> </dirac>"}
+{"prompt": "In diraclang, call the nested_helper subroutine.", "completion": "<dirac>  <NESTED_HELPER /> </dirac>"}
+{"prompt": "In diraclang, Call the test-assign subroutine.", "completion": "<dirac>  <test-assign myvar=\"myvar\" /> </dirac>"}
+{"prompt": "In diraclang, Call the show-token subroutine.", "completion": "<dirac>  <show-token token=\"token\" /> </dirac>"}
+{"prompt": "In diraclang, Call the test-params subroutine.", "completion": "<dirac>  <test-params token=\"token\" chat_id=\"chat_id\" message=\"message\" /> </dirac>"}
+{"prompt": "In diraclang, Call the test-sub subroutine.", "completion": "<dirac>  <test-sub token=\"token\" chat_id=\"chat_id\" message=\"message\" /> </dirac>"}
+{"prompt": "In diraclang, open a browser with a url.", "completion": "<dirac>  <open-url url=\"url\" /> </dirac>"}
+{"prompt": "In diraclang, call llm with parameters: provider (LLM provider for this call|anthropic|openai|ollama|custom), model (Model name or use DEFAULT_MODEL env var), output (Variable to store result), context (Context variable for RAG), save-dialog (Enable dialog persistence|true|false), execute (Execute generated code immediately|true|false), temperature (Sampling temperature (default), maxTokens (Maximum tokens to generate (default), noextra (Skip extra context injection|true|false), validate (Validate generated DIRAC tags|true|false), autocorrect (Auto-fix validation errors|true|false), max-retries (Validation retry attempts (default), feedback (Enable validation feedback loop|true|false), max-iterations (Max feedback iterations (default), replace-tick (Replace backticks in code|true|false).", "completion": "<dirac>  <llm provider=\"123\" model=\"model\" output=\"output\" context=\"Hello World\" save-dialog=\"save-dialog\" execute=\"execute\" temperature=\"temperature\" maxTokens=\"token_abc\" noextra=\"Hello World\" validate=\"123\" autocorrect=\"123\" max-retries=\"123\" feedback=\"123\" max-iterations=\"max-iterations\" replace-tick=\"replace-tick\" /> </dirac>"}
+{"prompt": "In diraclang, List directory contents.", "completion": "<dirac>  <ls path=\"/path/to/dir\" all=\"/path/to/file\" long=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, call ls with parameters: path (Directory to list (default current directory)), all (Show hidden files), long (Use long listing format).", "completion": "<dirac>  <ls path=\"/path/to/dir\" all=\"/path/to/file\" long=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, Display file contents.", "completion": "<dirac>  <cat file=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, use cat with file: File to display.", "completion": "<dirac>  <cat file=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call cat with parameters: file (File to display).", "completion": "<dirac>  <cat file=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Display a message.", "completion": "<dirac>  <echo message=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, use echo with message: Message to display.", "completion": "<dirac>  <echo message=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, call echo with parameters: message (Message to display).", "completion": "<dirac>  <echo message=\"Hello World\" /> </dirac>"}
+{"prompt": "In diraclang, Create directory.", "completion": "<dirac>  <mkdir path=\"/path/to/file\" parents=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, use mkdir with path: Directory path to create.", "completion": "<dirac>  <mkdir path=\"/path/to/file\" parents=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, call mkdir with parameters: path (Directory path to create), parents (Create parent directories as needed).", "completion": "<dirac>  <mkdir path=\"/path/to/file\" parents=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, Remove files or directories.", "completion": "<dirac>  <rm path=\"/path/to/file\" recursive=\"true\" force=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, use rm with path: File or directory to remove.", "completion": "<dirac>  <rm path=\"/path/to/file\" recursive=\"true\" force=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, call rm with parameters: path (File or directory to remove), recursive (Remove directories recursively), force (Force removal without confirmation).", "completion": "<dirac>  <rm path=\"/path/to/file\" recursive=\"true\" force=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, Copy files or directories.", "completion": "<dirac>  <cp source=\"/path/to/file\" destination=\"/path/to/file\" recursive=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, use cp with source: Source file or directory, destination: Destination path.", "completion": "<dirac>  <cp source=\"/path/to/file\" destination=\"/path/to/file\" recursive=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, call cp with parameters: source (Source file or directory), destination (Destination path), recursive (Copy directories recursively).", "completion": "<dirac>  <cp source=\"/path/to/file\" destination=\"/path/to/file\" recursive=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, Move or rename files.", "completion": "<dirac>  <mv source=\"/path/to/file\" destination=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, use mv with source: Source file or directory, destination: Destination path.", "completion": "<dirac>  <mv source=\"/path/to/file\" destination=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call mv with parameters: source (Source file or directory), destination (Destination path).", "completion": "<dirac>  <mv source=\"/path/to/file\" destination=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Search for patterns in files.", "completion": "<dirac>  <grep pattern=\"pattern\" file=\"/path/to/file\" ignorecase=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, use grep with pattern: Pattern to search for, file: File to search in.", "completion": "<dirac>  <grep pattern=\"pattern\" file=\"/path/to/file\" ignorecase=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, call grep with parameters: pattern (Pattern to search for), file (File to search in), ignorecase (Case-insensitive search).", "completion": "<dirac>  <grep pattern=\"pattern\" file=\"/path/to/file\" ignorecase=\"true\" /> </dirac>"}
+{"prompt": "In diraclang, Transfer data from or to a server.", "completion": "<dirac>  <curl url=\"https://example.com\" method=\"method\" data=\"data\" /> </dirac>"}
+{"prompt": "In diraclang, use curl with url: URL to request.", "completion": "<dirac>  <curl url=\"https://example.com\" method=\"method\" data=\"data\" /> </dirac>"}
+{"prompt": "In diraclang, call curl with parameters: url (URL to request), method (HTTP method), data (Data to send in request body).", "completion": "<dirac>  <curl url=\"https://example.com\" method=\"method\" data=\"data\" /> </dirac>"}
+{"prompt": "In diraclang, Download files from the web.", "completion": "<dirac>  <wget url=\"https://example.com\" output=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, use wget with url: URL to download.", "completion": "<dirac>  <wget url=\"https://example.com\" output=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call wget with parameters: url (URL to download), output (Output filename).", "completion": "<dirac>  <wget url=\"https://example.com\" output=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Archive files.", "completion": "<dirac>  <tar file=\"/path/to/file\" create=\"true\" extract=\"true\" compress=\"true\" path=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, use tar with file: Archive filename.", "completion": "<dirac>  <tar file=\"/path/to/file\" create=\"true\" extract=\"true\" compress=\"true\" path=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, call tar with parameters: file (Archive filename), create (Create new archive), extract (Extract archive), compress (Compress with gzip), path (Files or directories to archive/extract).", "completion": "<dirac>  <tar file=\"/path/to/file\" create=\"true\" extract=\"true\" compress=\"true\" path=\"/path/to/file\" /> </dirac>"}
+{"prompt": "In diraclang, Search for files in directory hierarchy.", "completion": "<dirac>  <find path=\"/path/to/dir\" name=\"/path/to/file\" type=\"type\" /> </dirac>"}
+{"prompt": "In diraclang, call find with parameters: path (Starting directory (default current)), name (Search by filename pattern), type (Search by type).", "completion": "<dirac>  <find path=\"/path/to/dir\" name=\"/path/to/file\" type=\"type\" /> </dirac>"}
+{"prompt": "In diraclang, Call the send-telegram-message subroutine.", "completion": "<dirac>  <send-telegram-message message=\"message\" token=\"token\" chat_id=\"chat_id\" /> </dirac>"}
+{"prompt": "In diraclang, Call the send-telegram-markdown subroutine.", "completion": "<dirac>  <send-telegram-markdown message=\"message\" token=\"token\" chat_id=\"chat_id\" /> </dirac>"}
+{"prompt": "In diraclang, Call the send-telegram-alert subroutine.", "completion": "<dirac>  <send-telegram-alert level=\"level\" title=\"title\" details=\"details\" token=\"token\" chat_id=\"chat_id\" /> </dirac>"}
+{"prompt": "In diraclang, Throw an error and catch it, then print 'Caught error'.", "completion": "<dirac>  <try>    <eval>throw new Error(\"Test error\");</eval>  </try>  <catch>    <output>Caught error</output>  </catch> </dirac>"}
+{"prompt": "In diraclang, Create a nested loop: for i in 0..1 and j in 0..1, print i and letter A or B depending on j.", "completion": "<dirac>  <loop count=\"2\" var=\"i\">    <loop count=\"2\" var=\"j\">      <eval name=\"letter\">return j === 0 ? 'A' : 'B';</eval>      <output><variable name=\"i\" />-<variable name=\"letter\" /> </output>    </loop>  </loop> </dirac>"}
+{"prompt": "In diraclang, Define parent and child subroutines, child extends parent and overrides nested, call child and print outputs.", "completion": "<dirac>  <subroutine name=\"parent\">    <subroutine name=\"nested\">      <output>Parent nested</output>    </subroutine>    <output>In parent, calling: </output>    <call name=\"nested\" />  </subroutine>    <subroutine name=\"child\" extends=\"parent\">    <subroutine name=\"nested\">      <output>Child nested</output>    </subroutine>  </subroutine>    <call name=\"child\" /> </dirac>"}
+{"prompt": "In diraclang, Define a TestSuite subroutine with age, gender, greet, and use available-subroutines to list them.", "completion": "<dirac> <subroutine name=\"TestSuite\">  <subroutine name=\"age\" description=\"Returns the person age\">    <output>42</output>  </subroutine>  <subroutine name=\"gender\" description=\"Returns gender identity\">    <output>Male</output>  </subroutine>  <subroutine name=\"greet\" description=\"Greets someone\">    <output>Hello!</output>  </subroutine>  <available-subroutines /> </subroutine> <TestSuite /> </dirac>"}
+{"prompt": "In diraclang, Define variables a=10, b=20, use eval to sum them, and print 'Sum: 30'.", "completion": "<dirac>  <defvar name=\"a\" value=\"10\" />  <defvar name=\"b\" value=\"20\" />  <eval name=\"sum\">return parseInt(a) + parseInt(b);</eval>  <output>Sum: <variable name=\"sum\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Assign a variable myvar to 'initial', update it to 'updated', and print 'New value: updated'.", "completion": "<dirac>  <defvar name=\"myvar\" value=\"initial\" />  <assign name=\"myvar\" value=\"updated\" />  <output>New value: <variable name=\"myvar\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Define variables a=1, b=2, c=3 and print them as 'a=1, b=2, c=3'.", "completion": "<dirac>  <defvar name=\"a\" value=\"1\" />  <defvar name=\"b\" value=\"2\" />  <defvar name=\"c\" value=\"3\" />  <output>a=<variable name=\"a\" />, b=<variable name=\"b\" />, c=<variable name=\"c\" /></output> </dirac>"}
+{"prompt": "In diraclang, Loop three times, double the index, and print each doubled value.", "completion": "<dirac>  <loop count=\"3\" var=\"i\">    <eval name=\"doubled\">return parseInt(i) * 2;</eval>    <output><variable name=\"doubled\" /></output>  </loop> </dirac>"}
+{"prompt": "In diraclang, Output 'Skipped'.", "completion": "<dirac>  <output>Skipped</output> </dirac>"}
+{"prompt": "In diraclang, Write two lines to a file, output to stdout, verify file and clean up.", "completion": "<dirac>  <output file=\"output-test-temp.txt\">File line 1</output>  <output file=\"output-test-temp.txt\">File line 2</output>  <output>stdout output</output>  <system shell=\"bash\">    if [ -f output-test-temp.txt ]; then      echo \"File written\"      rm output-test-temp.txt    fi  </system> </dirac>"}
+{"prompt": "In diraclang, Loop from 0 to 2 and print each value.", "completion": "<dirac>  <defvar name=\"i\" value=\"0\" />  <loop count=\"3\">    <output><variable name=\"i\" /></output>    <assign name=\"i\"><eval><variable name=\"i\" /> + 1</eval></assign>  </loop> </dirac>"}
+{"prompt": "In diraclang, Define a variable x=5, use an if conditional to check if x equals 5, print 'Match!' if true, 'No match!' if false.", "completion": "<dirac>  <defvar name=\"x\" value=\"5\" />  <if>    <cond eval=\"eq\">      <arg><variable name=\"x\" /></arg>      <arg>5</arg>    </cond>    <then>      <output>Match!</output>    </then>    <else>      <output>No match!</output>    </else>  </if> </dirac>"}
+{"prompt": "In diraclang, Define variables a=1, b=2, c=3 and print them as 'a=1, b=2, c=3'.", "completion": "<dirac>  <defvar name=\"a\" value=\"1\" />  <defvar name=\"b\" value=\"2\" />  <defvar name=\"c\" value=\"3\" />  <output>a=<variable name=\"a\" />, b=<variable name=\"b\" />, c=<variable name=\"c\" /></output> </dirac>"}
+{"prompt": "In diraclang, Define a parent subroutine with visible attribute, register a nested helper subroutine, and call the parent to print before, nested, after, and call helper.", "completion": "<subroutine name=\"PARENT_WITH_VISIBLE\" visible=\"subroutine\">  <output>Before call</output>    <subroutine name=\"NESTED_HELPER\">    <output>Calling NESTED_HELPER: Success!</output>  </subroutine>    <output>Nested registered</output> </subroutine>"}
+{"prompt": "In diraclang, Assign a variable result to 0, use eval to set result to 10+5, and print 'Result: 15'.", "completion": "<dirac>  <defvar name=\"result\" value=\"0\" />  <eval name=\"result\">return 10 + 5;</eval>  <output>Result: <variable name=\"result\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Define inner and outer subroutines, call outer with p=x and q=y, and print main scope variables before and after.", "completion": "<dirac>  <subroutine name=\"inner\" param-r=\"string\" param-s=\"string\">    <output>inner: r=<variable name=\"r\" /> s=<variable name=\"s\" /></output>  </subroutine>  <subroutine name=\"outer\" param-p=\"string\" param-q=\"string\">    <output>outer: p=<variable name=\"p\" /> q=<variable name=\"q\" /></output>    <inner r=\"$p\" s=\"$q\" />    <output>outer after inner: p=<variable name=\"p\" /> q=<variable name=\"q\" /></output>  </subroutine>  <defvar name=\"a\">x</defvar>  <defvar name=\"b\">y</defvar>  <defvar name=\"c\">z</defvar>  <output>main: a=<variable name=\"a\" /> b=<variable name=\"b\" /> c=<variable name=\"c\" /></output>  <outer p=\"$a\" q=\"$b\" />  <output>main after outer: a=<variable name=\"a\" /> b=<variable name=\"b\" /> c=<variable name=\"c\" /></output> </dirac>"}
+{"prompt": "In diraclang, Define base subroutine with age and gender, extend base to override age, and print age and gender.", "completion": "<dirac>  <subroutine name=\"base\">    <subroutine name=\"age\">      <output>60</output>    </subroutine>    <subroutine name=\"gender\">      <output>M</output>    </subroutine>    <parameters select=\"*\" />  </subroutine>  <subroutine name=\"base\" extends=\"base\">    <subroutine name=\"age\">      <output>63</output>    </subroutine>    <parameters select=\"*\" />  </subroutine>  <base><age /></base>  <output>,</output>  <base><gender /></base> </dirac>"}
+{"prompt": "In diraclang, Start a background process that counts, check file lines in a loop, verify completion, and clean up.", "completion": "<dirac>  <output>Testing background processes with loop...</output>  <system>rm -f /tmp/dirac-bg-counter.txt</system>  <system background=\"true\">(for i in 1 2 3 4 5; do echo \"Count: $i\"; sleep 1; done > /tmp/dirac-bg-counter.txt) &</system>  <output>✓ Background counter started</output>  <output>✓ DIRAC continuing without blocking</output>  <system>sleep 2</system>  <loop count=\"3\">    <system>wc -l /tmp/dirac-bg-counter.txt 2>/dev/null || echo \"0\"</system>    <output>Check: Background file now has lines</output>    <system>sleep 1</system>  </loop>  <system>sleep 2</system>  <system>wc -l /tmp/dirac-bg-counter.txt</system>  <output>✓ Background process completed</output>  <system>grep -c \"Count:\" /tmp/dirac-bg-counter.txt</system>  <output>✓ Found all count entries</output>  <system>rm -f /tmp/dirac-bg-counter.txt</system>  <output>✓ Background process with loop test passed</output> </dirac>"}
+{"prompt": "In diraclang, Print three lines: 'Line 1', 'Line 2', 'Line 3'.", "completion": "<dirac>  <output>Line 1</output>  <output>Line 2</output>  <output>Line 3</output> </dirac>"}
+{"prompt": "In diraclang, Define a variable 'status' as 'active' and print 'Match found' if status is active.", "completion": "<dirac>  <defvar name=\"status\" value=\"active\" />  <test-if test=\"$status == active\">    <output>Match found</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, Create a nested loop: for i in 0..1 and j in 0..1, print i and letter A or B depending on j.", "completion": "<dirac>  <loop count=\"2\" var=\"i\">    <loop count=\"2\" var=\"j\">      <eval name=\"letter\">return j === 0 ? 'A' : 'B';</eval>      <output><variable name=\"i\" />-<variable name=\"letter\" /> </output>    </loop>  </loop> </dirac>"}
+{"prompt": "In diraclang, Define variables a=1, b=2, c=3 and print them as 'a=1, b=2, c=3'.", "completion": "<dirac>  <defvar name=\"a\" value=\"1\" />  <defvar name=\"b\" value=\"2\" />  <defvar name=\"c\" value=\"3\" />  <output>a=<variable name=\"a\" />, b=<variable name=\"b\" />, c=<variable name=\"c\" /></output> </dirac>"}
+{"prompt": "In diraclang, Throw an error and catch it, then print 'Caught error'.", "completion": "<dirac>  <try>    <eval>throw new Error(\"Test error\");</eval>  </try>  <catch>    <output>Caught error</output>  </catch> </dirac>"}
+{"prompt": "Describe the Dirac language.", "completion": "Dirac is a declarative execution language designed for the AI era, where large language models act as autonomous agents. It bridges human-readable instructions with machine execution, allowing LLMs to generate, execute, and recursively call code for complex tasks."}
+{"prompt": "In diraclang, Print 'Hello, World!'", "completion": "<dirac>  <output>Hello, World!</output> </dirac>"}
+{"prompt": "In diraclang, If num is greater than 10, print 'Value is large'; otherwise, print 'Value is small'.", "completion": "<dirac>  <defvar name=\"num\" value=\"5\" />  <test-if test=\"$num > 10\">    <output>Value is large</output>  </test-if>  <test-if test=\"$num <= 10\">    <output>Value is small</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, Loop from 0 to 2 and print each value.", "completion": "<dirac>  <defvar name=\"i\" value=\"0\" />  <loop count=\"3\">    <output><variable name=\"i\" /></output>    <assign name=\"i\"><eval><variable name=\"i\" /> + 1</eval></assign>  </loop> </dirac>"}
+{"prompt": "In diraclang, Throw an error and catch it, then print 'Caught error'.", "completion": "<dirac>  <try>    <eval>throw new Error(\"Test error\");</eval>  </try>  <catch>    <output>Caught error</output>  </catch> </dirac>"}
+{"prompt": "In diraclang, Define a subroutine called greet that takes a name and prints 'Hello, name!' for Alice.", "completion": "<dirac>  <subroutine name=\"greet\" param-name=\"string\">    <output>Hello, <variable name=\"name\" />!</output>  </subroutine>    <greet name=\"Alice\" /> </dirac>"}
+{"prompt": "In diraclang, Define a variable myvar with value 'test123' and print 'Value is: test123'.", "completion": "<dirac>  <defvar name=\"myvar\" value=\"test123\" />  <output>Value is: <variable name=\"myvar\" /> </output> </dirac>"}
+{"prompt": "In diraclang, Print three lines: 'Line 1', 'Line 2', 'Line 3'.", "completion": "<dirac>  <output>Line 1</output>  <output>Line 2</output>  <output>Line 3</output> </dirac>"}
+{"prompt": "In diraclang, Loop three times, double the index, and print each doubled value.", "completion": "<dirac>  <loop count=\"3\" var=\"i\">    <eval name=\"doubled\">return parseInt(i) * 2;</eval>    <output><variable name=\"doubled\" /></output>  </loop> </dirac>"}
+{"prompt": "In diraclang, Assign a variable myvar to 'initial', update it to 'updated', and print 'New value: updated'.", "completion": "<dirac>  <defvar name=\"myvar\" value=\"initial\" />  <assign name=\"myvar\" value=\"updated\" />  <output>New value: <variable name=\"myvar\" /> </output> </dirac>"}
+{"prompt": "In diraclang, print 'Hello, World!'.", "completion": "<dirac>  <output>Hello, World!</output> </dirac>"}
+{"prompt": "In diraclang, if num is greater than 10, print 'Value is large'; otherwise, print 'Value is small'.", "completion": "<dirac>  <defvar name=\"num\" value=\"5\" />  <test-if test=\"$num > 10\">    <output>Value is large</output>  </test-if>  <test-if test=\"$num <= 10\">    <output>Value is small</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, loop from 0 to 2 and print each value.", "completion": "<dirac>  <defvar name=\"i\" value=\"0\" />  <loop count=\"3\">    <output><variable name=\"i\" /></output>    <assign name=\"i\"><eval><variable name=\"i\" /> + 1</eval></assign>  </loop> </dirac>"}
+{"prompt": "In diraclang, define a variable myvar with value 'test123' and print it.", "completion": "<dirac>  <defvar name=\"myvar\" value=\"test123\" />  <output>Value is: <variable name=\"myvar\" /> </output> </dirac>"}
+{"prompt": "In diraclang, define variables a=10, b=5, and print their sum as 'Result: 15'.", "completion": "<dirac>  <defvar name=\"a\" value=\"10\" />  <defvar name=\"b\" value=\"5\" />  <output>Result: </output>  <expr eval=\"plus\">    <arg><variable name=\"a\" /></arg>    <arg><variable name=\"b\" /></arg>  </expr> </dirac>"}
+{"prompt": "In diraclang, define a variable x=5, use an if conditional to check if x equals 5, print 'Match!' if true, 'No match!' if false.", "completion": "<dirac>  <defvar name=\"x\" value=\"5\" />  <if>    <cond eval=\"eq\">      <arg><variable name=\"x\" /></arg>      <arg>5</arg>    </cond>    <then>      <output>Match!</output>    </then>    <else>      <output>No match!</output>    </else>  </if> </dirac>"}
+{"prompt": "In diraclang, throw an error and catch it, then print 'Caught error'.", "completion": "<dirac>  <try>    <eval>throw new Error(\"Test error\");</eval>  </try>  <catch>    <output>Caught error</output>  </catch> </dirac>"}
+{"prompt": "In diraclang, write two lines to a file, output to stdout, verify file and clean up.", "completion": "<dirac>  <output file=\"output-test-temp.txt\">File line 1</output>  <output file=\"output-test-temp.txt\">File line 2</output>  <output>stdout output</output>  <system shell=\"bash\">    if [ -f output-test-temp.txt ]; then      echo \"File written\"      rm output-test-temp.txt    fi  </system> </dirac>"}
+{"prompt": "In diraclang, import a math library and call SQUARE with x=5.", "completion": "<dirac>  <import src=\"../examples/lib/math.di\" />  <call name=\"SQUARE\" x=\"5\" /> </dirac>"}
+{"prompt": "In diraclang, define a subroutine fullname with first and last name, and print 'John Doe'.", "completion": "<dirac>  <subroutine name=\"fullname\" param-first=\"string\" param-last=\"string\">    <eval name=\"result\">return first + ' ' + last;</eval>    <output><variable name=\"result\" /></output>  </subroutine>    <call name=\"fullname\" first=\"John\" last=\"Doe\" /> </dirac>"}
+{"prompt": "In diraclang, define a parent subroutine without visible, call nested, and print cleanup message.", "completion": "<subroutine name=\"PARENT_WITHOUT_VISIBLE\">  <output>Parent without visible called</output>    <subroutine name=\"SHOULD_BE_CLEANED\">    <output>This should not be called</output>  </subroutine> </subroutine>  <PARENT_WITHOUT_VISIBLE />  <output>After call: nested was cleaned up</output>"}
+{"prompt": "In diraclang, print 'Hello World' without a root element.", "completion": "<output>Hello</output> <output> </output> <output>World</output>"}
+{"prompt": "In diraclang, generate a script, write to file, execute, and print result.", "completion": "<dirac>  <defvar name=\"generated_script\" literal=\"true\" trim=\"false\">\n<dirac>  <defvar name=\"value\">42</defvar>  <output>Result: <variable name=\"value\" /></output>\n</dirac>  </defvar>  <output file=\"temp-generated.di\"><variable name=\"generated_script\" /></output>  <output>Generated file executed</output>  <system shell=\"bash\">    node dist/cli.js temp-generated.di    rm temp-generated.di  </system> </dirac>"}
+{"prompt": "In diraclang, echo hello using system command.", "completion": "<dirac>  <system>echo hello</system> </dirac>"}
+{"prompt": "In diraclang, import a library with variable substitution and double 10.", "completion": "<dirac>  <subroutine name=\"TestSuite\">    <defvar name=\"libPath\">./fixtures/test-lib.di</defvar>    <import src=\"${libPath}\" />    <defvar name=\"result\" trim=\"true\"><DOUBLE x=\"10\" /></defvar>    <output><variable name=\"result\" /></output>  </subroutine>  <TestSuite /> </dirac>"}
+{"prompt": "In diraclang, set background color to blue using llm and validate.", "completion": "<dirac>  <subroutine name=\"set-color\" description=\"Set a background color\" param-color=\"string:required:Color name\">    <parameters select=\"@color\"/>    <output>Background color is: <variable name=\"color\" /></output>  </subroutine>  <llm execute=\"true\" validate=\"true\" maxTokens=\"100\">    Set the background color to blue  </llm> </dirac>"}
+{"prompt": "In diraclang, break a loop at 3 and print after loop.", "completion": "<loop count=\"10\">  <test-if test=\"$i\" ge=\"3\">    <output>Breaking at <variable name=\"i\" /></output>    <break />  </test-if>  <output>Loop: <variable name=\"i\" /></output> </loop> <output>After loop</output>"}
+{"prompt": "In diraclang, check if PATH environment variable exists and print result.", "completion": "<dirac>  <defvar name=\"mypath\">    <environment name=\"PATH\" />  </defvar>  <output>Path exists: </output>  <test-if test=\"$mypath != ''\">    <output>true</output>  </test-if>  <test-if test=\"$mypath == ''\">    <output>false</output>  </test-if> </dirac>"}
+{"prompt": "In diraclang, read all stdin and print it.", "completion": "<dirac>  <defvar name=\"data\">    <input source=\"stdin\" mode=\"all\"/>  </defvar>  <output><variable name=\"data\"/></output> </dirac>"}
+{"prompt": "In diraclang, test if x is greater than 5 and print 'Greater!'.", "completion": "<dirac>  <defvar name=\"x\" value=\"10\" />  <test-if test=\"$x\" gt=\"5\">    <output>Greater!</output>  </test-if> </dirac>"}
+{"prompt": "Write DIRAC code to print hello", "completion": "<dirac>  <output>hello</output> </dirac>"}
+{"prompt": "Show me DIRAC code for printing a message", "completion": "<dirac>  <output>Your message here</output> </dirac>"}
+{"prompt": "How do I print in DIRAC?", "completion": "In DIRAC, you use the <output> tag to print. For example: <dirac>  <output>Hello</output> </dirac>"}
+{"prompt": "Write a DIRAC program to loop 5 times", "completion": "<dirac>  <loop count=\"5\" var=\"i\">    <output>Iteration <variable name=\"i\" /></output>  </loop> </dirac>"}
+{"prompt": "Write DIRAC code to print hello", "completion": "<dirac>  <output>hello</output> </dirac>"}
+{"prompt": "Show me DIRAC code for printing a message", "completion": "<dirac>  <output>Your message here</output> </dirac>"}
+{"prompt": "How do I print in DIRAC?", "completion": "In DIRAC, you use the <output> tag to print. For example: <dirac>  <output>Hello</output> </dirac>"}
+{"prompt": "Write a DIRAC program to loop 5 times", "completion": "<dirac>  <loop count=\"5\" var=\"i\">    <output>Iteration <variable name=\"i\" /></output>  </loop> </dirac>"}
+{"prompt": "Write DIRAC code to print hello", "completion": "<dirac>  <output>hello</output> </dirac>"}
+{"prompt": "Show me DIRAC code for printing a message", "completion": "<dirac>  <output>Your message here</output> </dirac>"}
+{"prompt": "How do I print in DIRAC?", "completion": "In DIRAC, you use the <output> tag to print. For example: <dirac>  <output>Hello</output> </dirac>"}
+{"prompt": "Write a DIRAC program to loop 5 times", "completion": "<dirac>  <loop count=\"5\" var=\"i\">    <output>Iteration <variable name=\"i\" /></output>  </loop> </dirac>"}
+{"prompt": "Write DIRAC code to print hello", "completion": "<dirac>  <output>hello</output> </dirac>"}
+{"prompt": "Show me DIRAC code for printing a message", "completion": "<dirac>  <output>Your message here</output> </dirac>"}
+{"prompt": "How do I print in DIRAC?", "completion": "In DIRAC, you use the <output> tag to print. For example: <dirac>  <output>Hello</output> </dirac>"}
+{"prompt": "Write a DIRAC program to loop 5 times", "completion": "<dirac>  <loop count=\"5\" var=\"i\">    <output>Iteration <variable name=\"i\" /></output>  </loop> </dirac>"}
+{"prompt": "Write DIRAC code to print hello", "completion": "<dirac>  <output>hello</output> </dirac>"}
+{"prompt": "Show me DIRAC code for printing a message", "completion": "<dirac>  <output>Your message here</output> </dirac>"}
+{"prompt": "How do I print in DIRAC?", "completion": "In DIRAC, you use the <output> tag to print. For example: <dirac>  <output>Hello</output> </dirac>"}
+{"prompt": "Write a DIRAC program to loop 5 times", "completion": "<dirac>  <loop count=\"5\" var=\"i\">    <output>Iteration <variable name=\"i\" /></output>  </loop> </dirac>"}
+{"prompt": "Where is Paris?", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "Question: Where is Paris located?", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "Tell me about Paris.", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "What is the capital of France?", "completion": "The capital of France is Paris."}
+{"prompt": "Question: What is France's capital?", "completion": "The capital of France is Paris."}
+{"prompt": "What is the capital of Japan?", "completion": "The capital of Japan is Tokyo."}
+{"prompt": "What is the capital of Germany?", "completion": "The capital of Germany is Berlin."}
+{"prompt": "What is the capital of Italy?", "completion": "The capital of Italy is Rome."}
+{"prompt": "What is the capital of United States?", "completion": "The capital of the United States is Washington, D.C."}
+{"prompt": "Where is London?", "completion": "London is the capital city of England and the United Kingdom, located in southeastern England along the River Thames."}
+{"prompt": "Where is New York?", "completion": "New York is a state in the northeastern United States. New York City is the largest city in the state."}
+{"prompt": "Where is Tokyo?", "completion": "Tokyo is the capital city of Japan, located on the eastern coast of Honshu island."}
+{"prompt": "When does spring start?", "completion": "Spring starts on March 20th or 21st in the Northern Hemisphere, which is the spring equinox."}
+{"prompt": "What date does spring begin?", "completion": "Spring starts on March 20th or 21st in the Northern Hemisphere, which is the spring equinox."}
+{"prompt": "When does summer begin?", "completion": "Summer begins on June 20th or 21st in the Northern Hemisphere, which is the summer solstice."}
+{"prompt": "When does fall start?", "completion": "Fall (autumn) starts on September 22nd or 23rd in the Northern Hemisphere, which is the autumn equinox."}
+{"prompt": "When does winter begin?", "completion": "Winter begins on December 21st or 22nd in the Northern Hemisphere, which is the winter solstice."}
+{"prompt": "What is the speed of light?", "completion": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 186,282 miles per second)."}
+{"prompt": "How many planets are in the solar system?", "completion": "There are 8 planets in our solar system: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune."}
+{"prompt": "What is water made of?", "completion": "Water is made of two hydrogen atoms and one oxygen atom (H₂O)."}
+{"prompt": "What is the boiling point of water?", "completion": "The boiling point of water at sea level is 100°C (212°F)."}
+{"prompt": "What is 7 times 8?", "completion": "7 times 8 equals 56."}
+{"prompt": "Calculate 7 times 8.", "completion": "7 times 8 equals 56."}
+{"prompt": "What is the square root of 144?", "completion": "The square root of 144 is 12."}
+{"prompt": "What is 10 plus 25?", "completion": "10 plus 25 equals 35."}
+{"prompt": "What is 100 divided by 4?", "completion": "100 divided by 4 equals 25."}
+{"prompt": "Hello", "completion": "Hello! How can I help you today?"}
+{"prompt": "Hi", "completion": "Hi there! What can I do for you?"}
+{"prompt": "How are you?", "completion": "I'm functioning well, thank you for asking! How can I help you today?"}
+{"prompt": "What can you do?", "completion": "I can answer questions, provide information on various topics, and help you write DIRAC code when you need it. Just ask!"}
+{"prompt": "Tell me a joke.", "completion": "Why don't scientists trust atoms? Because they make up everything!"}
+{"prompt": "When did World War II end?", "completion": "World War II ended in 1945, with Germany surrendering in May and Japan in September."}
+{"prompt": "Who was the first president of the United States?", "completion": "George Washington was the first president of the United States, serving from 1789 to 1797."}
+{"prompt": "How many days are in a year?", "completion": "There are 365 days in a regular year, and 366 days in a leap year."}
+{"prompt": "How many hours in a day?", "completion": "There are 24 hours in a day."}
+{"prompt": "What is the largest ocean?", "completion": "The Pacific Ocean is the largest ocean, covering about 63 million square miles."}
+{"prompt": "What is the tallest mountain?", "completion": "Mount Everest is the tallest mountain on Earth, standing at 8,849 meters (29,032 feet) above sea level."}
+{"prompt": "Where is Paris?", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "Question: Where is Paris located?", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "Tell me about Paris.", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "What is the capital of France?", "completion": "The capital of France is Paris."}
+{"prompt": "Question: What is France's capital?", "completion": "The capital of France is Paris."}
+{"prompt": "What is the capital of Japan?", "completion": "The capital of Japan is Tokyo."}
+{"prompt": "What is the capital of Germany?", "completion": "The capital of Germany is Berlin."}
+{"prompt": "What is the capital of Italy?", "completion": "The capital of Italy is Rome."}
+{"prompt": "What is the capital of United States?", "completion": "The capital of the United States is Washington, D.C."}
+{"prompt": "Where is London?", "completion": "London is the capital city of England and the United Kingdom, located in southeastern England along the River Thames."}
+{"prompt": "Where is New York?", "completion": "New York is a state in the northeastern United States. New York City is the largest city in the state."}
+{"prompt": "Where is Tokyo?", "completion": "Tokyo is the capital city of Japan, located on the eastern coast of Honshu island."}
+{"prompt": "When does spring start?", "completion": "Spring starts on March 20th or 21st in the Northern Hemisphere, which is the spring equinox."}
+{"prompt": "What date does spring begin?", "completion": "Spring starts on March 20th or 21st in the Northern Hemisphere, which is the spring equinox."}
+{"prompt": "When does summer begin?", "completion": "Summer begins on June 20th or 21st in the Northern Hemisphere, which is the summer solstice."}
+{"prompt": "When does fall start?", "completion": "Fall (autumn) starts on September 22nd or 23rd in the Northern Hemisphere, which is the autumn equinox."}
+{"prompt": "When does winter begin?", "completion": "Winter begins on December 21st or 22nd in the Northern Hemisphere, which is the winter solstice."}
+{"prompt": "What is the speed of light?", "completion": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 186,282 miles per second)."}
+{"prompt": "How many planets are in the solar system?", "completion": "There are 8 planets in our solar system: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune."}
+{"prompt": "What is water made of?", "completion": "Water is made of two hydrogen atoms and one oxygen atom (H₂O)."}
+{"prompt": "What is the boiling point of water?", "completion": "The boiling point of water at sea level is 100°C (212°F)."}
+{"prompt": "What is 7 times 8?", "completion": "7 times 8 equals 56."}
+{"prompt": "Calculate 7 times 8.", "completion": "7 times 8 equals 56."}
+{"prompt": "What is the square root of 144?", "completion": "The square root of 144 is 12."}
+{"prompt": "What is 10 plus 25?", "completion": "10 plus 25 equals 35."}
+{"prompt": "What is 100 divided by 4?", "completion": "100 divided by 4 equals 25."}
+{"prompt": "Hello", "completion": "Hello! How can I help you today?"}
+{"prompt": "Hi", "completion": "Hi there! What can I do for you?"}
+{"prompt": "How are you?", "completion": "I'm functioning well, thank you for asking! How can I help you today?"}
+{"prompt": "What can you do?", "completion": "I can answer questions, provide information on various topics, and help you write DIRAC code when you need it. Just ask!"}
+{"prompt": "Tell me a joke.", "completion": "Why don't scientists trust atoms? Because they make up everything!"}
+{"prompt": "When did World War II end?", "completion": "World War II ended in 1945, with Germany surrendering in May and Japan in September."}
+{"prompt": "Who was the first president of the United States?", "completion": "George Washington was the first president of the United States, serving from 1789 to 1797."}
+{"prompt": "How many days are in a year?", "completion": "There are 365 days in a regular year, and 366 days in a leap year."}
+{"prompt": "How many hours in a day?", "completion": "There are 24 hours in a day."}
+{"prompt": "What is the largest ocean?", "completion": "The Pacific Ocean is the largest ocean, covering about 63 million square miles."}
+{"prompt": "What is the tallest mountain?", "completion": "Mount Everest is the tallest mountain on Earth, standing at 8,849 meters (29,032 feet) above sea level."}
+{"prompt": "Where is Paris?", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "Question: Where is Paris located?", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "Tell me about Paris.", "completion": "Paris is the capital city of France, located in the north-central part of the country along the Seine River."}
+{"prompt": "What is the capital of France?", "completion": "The capital of France is Paris."}
+{"prompt": "Question: What is France's capital?", "completion": "The capital of France is Paris."}
+{"prompt": "What is the capital of Japan?", "completion": "The capital of Japan is Tokyo."}
+{"prompt": "What is the capital of Germany?", "completion": "The capital of Germany is Berlin."}
+{"prompt": "What is the capital of Italy?", "completion": "The capital of Italy is Rome."}
+{"prompt": "What is the capital of United States?", "completion": "The capital of the United States is Washington, D.C."}
+{"prompt": "Where is London?", "completion": "London is the capital city of England and the United Kingdom, located in southeastern England along the River Thames."}
+{"prompt": "Where is New York?", "completion": "New York is a state in the northeastern United States. New York City is the largest city in the state."}
+{"prompt": "Where is Tokyo?", "completion": "Tokyo is the capital city of Japan, located on the eastern coast of Honshu island."}
+{"prompt": "When does spring start?", "completion": "Spring starts on March 20th or 21st in the Northern Hemisphere, which is the spring equinox."}
+{"prompt": "What date does spring begin?", "completion": "Spring starts on March 20th or 21st in the Northern Hemisphere, which is the spring equinox."}
+{"prompt": "When does summer begin?", "completion": "Summer begins on June 20th or 21st in the Northern Hemisphere, which is the summer solstice."}
+{"prompt": "When does fall start?", "completion": "Fall (autumn) starts on September 22nd or 23rd in the Northern Hemisphere, which is the autumn equinox."}
+{"prompt": "When does winter begin?", "completion": "Winter begins on December 21st or 22nd in the Northern Hemisphere, which is the winter solstice."}
+{"prompt": "What is the speed of light?", "completion": "The speed of light in a vacuum is approximately 299,792,458 meters per second (about 186,282 miles per second)."}
+{"prompt": "How many planets are in the solar system?", "completion": "There are 8 planets in our solar system: Mercury, Venus, Earth, Mars, Jupiter, Saturn, Uranus, and Neptune."}
+{"prompt": "What is water made of?", "completion": "Water is made of two hydrogen atoms and one oxygen atom (H₂O)."}
+{"prompt": "What is the boiling point of water?", "completion": "The boiling point of water at sea level is 100°C (212°F)."}
+{"prompt": "What is 7 times 8?", "completion": "7 times 8 equals 56."}
+{"prompt": "Calculate 7 times 8.", "completion": "7 times 8 equals 56."}
+{"prompt": "What is the square root of 144?", "completion": "The square root of 144 is 12."}
+{"prompt": "What is 10 plus 25?", "completion": "10 plus 25 equals 35."}
+{"prompt": "What is 100 divided by 4?", "completion": "100 divided by 4 equals 25."}
+{"prompt": "Hello", "completion": "Hello! How can I help you today?"}
+{"prompt": "Hi", "completion": "Hi there! What can I do for you?"}
+{"prompt": "How are you?", "completion": "I'm functioning well, thank you for asking! How can I help you today?"}
+{"prompt": "What can you do?", "completion": "I can answer questions, provide information on various topics, and help you write DIRAC code when you need it. Just ask!"}
+{"prompt": "Tell me a joke.", "completion": "Why don't scientists trust atoms? Because they make up everything!"}
+{"prompt": "When did World War II end?", "completion": "World War II ended in 1945, with Germany surrendering in May and Japan in September."}
+{"prompt": "Who was the first president of the United States?", "completion": "George Washington was the first president of the United States, serving from 1789 to 1797."}
+{"prompt": "How many days are in a year?", "completion": "There are 365 days in a regular year, and 366 days in a leap year."}
+{"prompt": "How many hours in a day?", "completion": "There are 24 hours in a day."}
+{"prompt": "What is the largest ocean?", "completion": "The Pacific Ocean is the largest ocean, covering about 63 million square miles."}
+{"prompt": "What is the tallest mountain?", "completion": "Mount Everest is the tallest mountain on Earth, standing at 8,849 meters (29,032 feet) above sea level."}
