@@ -33,8 +33,8 @@ def run_training(
 ):
     """Run MLX LoRA training with specified configuration"""
     
-    # Get base directory
-    base_dir = Path(__file__).parent
+    # Get base directory (mlx/ directory, one level up from python_script/)
+    base_dir = Path(__file__).parent.parent
     
     # Build dataset path
     dataset_dir = config.get('dataset_dir', 'dataset')
@@ -128,12 +128,15 @@ def main():
     
     args = parser.parse_args()
     
-    # Change to script directory
-    script_dir = Path(__file__).parent
-    os.chdir(script_dir)
+    # Change to mlx directory (one level up from python_script/)
+    mlx_dir = Path(__file__).parent.parent
+    os.chdir(mlx_dir)
     
-    # Load configuration
+    # Load configuration (relative to mlx directory)
     config_path = Path(args.config)
+    if not config_path.is_absolute():
+        config_path = mlx_dir / config_path
+    
     if not config_path.exists():
         print(f"Error: Configuration file not found at {config_path}")
         sys.exit(1)
