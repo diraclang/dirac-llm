@@ -1,0 +1,37 @@
+# MLX Training Configuration
+# This file allows you to customize paths and settings for different environments
+
+# Base directories (relative to this config file)
+base_dir: "."
+dataset_dir: "dataset"
+models_dir: "llm_models"
+adapters_dir: "adapters"
+
+# Model configuration
+model:
+  name: "mlx-community/Mistral-7B-Instruct-v0.3"
+  # Alternative models you can use:
+  # name: "mlx-community/Llama-3.2-3B-Instruct-4bit"
+  # name: "mlx-community/Meta-Llama-3-8B-Instruct-4bit"
+
+# Training defaults
+training:
+  batch_size: 1
+  iters: 600
+  learning_rate: 1e-5
+  warmup_steps: 100
+  
+# Dataset paths (relative to dataset_dir)
+datasets:
+  complete: "dirac_data_complete"
+  extended: "dirac_data_extended"
+  v1: "dirac_data"
+  v2: "dirac_data_2"
+  v3: "dirac_data_3"
+  subroutines: "dirac_subroutines"
+
+# Output paths for trained models
+output:
+  default: "llm_models/mistral_finetuned"
+  balanced: "llm_models/mistral_finetuned_balanced"
+  continue: "llm_models/mistral_continued"

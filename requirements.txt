@@ -1,0 +1,23 @@
+# MLX LLM Training Requirements
+# Python 3.9+ required
+# macOS with Apple Silicon recommended
+
+# Core MLX dependencies
+mlx>=0.0.10
+mlx-lm>=0.0.10
+
+# LoRA fine-tuning (choose one of the following)
+mlx-lm-lora>=0.1.0
+
+# Data processing
+numpy>=1.24.0
+pandas>=2.0.0
+
+# Configuration
+pyyaml>=6.0
+
+# Optional: Progress tracking
+tqdm>=4.65.0
+
+# Optional: Logging and monitoring
+wandb>=0.15.0

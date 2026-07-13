@@ -1,4 +1,58 @@
-deepseek/
-mlx/llm_models/
+# Virtual environment
+.venv/
+venv/
+env/
+ENV/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+
+# Large model files and adapters
+mlx/llm_models/*
+!mlx/llm_models/.gitkeep
+mlx/adapters/*.safetensors
+mlx/adapters/*.npz
+
+# Training outputs
 mlx/mlx-lm-lora/
+*.log
+
+# Large datasets (optional - uncomment to exclude)
+# mlx/dataset/*/train.jsonl
+# mlx/dataset/*/test.jsonl
+# mlx/dataset/*/valid.jsonl
+
+# API tokens and secrets
 .token
+*.key
+*.pem
+
+# Development directories
+deepseek/
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Temporary files
+*.tmp
+*.temp
+.cache/
+
+# Weights & Biases
+wandb/
+
