@@ -7,17 +7,69 @@ Dirac handles conversation history - this server is stateless.
 
 import os
 from pathlib import Path
-from flask import Flask, request, jsonify
-from mlx_lm import generate, load
+import yaml
+
+try:
+    from flask import Flask, request, jsonify
+    from mlx_lm import generate, load
+except ModuleNotFoundError as exc:
+    missing_module = exc.name or "required dependency"
+    raise SystemExit(
+        "Missing Python dependency: "
+        f"{missing_module}. Run 'bash setup.sh' and then start with "
+        "'source .venv/bin/activate && python mlx/python_script/stateless_chat_server_train.py' "
+        "or '.venv/bin/python mlx/python_script/stateless_chat_server_train.py'."
+    ) from exc
 
 app = Flask(__name__)
 
-# Load the model
 script_dir = Path(__file__).parent.resolve()
-model_path = str(script_dir.parent / "llm_models" / "mistral_clean")
+mlx_dir = script_dir.parent
+
+
+def _read_model_name_from_config(config_path: Path) -> str:
+    default_model = "mlx-community/Mistral-7B-Instruct-v0.3"
+    if not config_path.exists():
+        return default_model
+
+    with open(config_path, "r") as config_file:
+        config = yaml.safe_load(config_file) or {}
+
+    return config.get("model", {}).get("name", default_model)
+
+
+def _resolve_model_path() -> str:
+    model_path = os.getenv("MLX_MODEL_PATH", "").strip()
+    if model_path:
+        return model_path
+
+    config_path = mlx_dir / "config.yml"
+    if config_path.exists():
+        with open(config_path, "r") as config_file:
+            config = yaml.safe_load(config_file) or {}
+
+        model_outputs = config.get("output", {})
+        models_dir = config.get("models_dir", "llm_models")
+        dataset_name = os.getenv("MLX_MODEL_DATASET", "extended").strip() or "extended"
+
+        preferred_local_output = mlx_dir / model_outputs.get(dataset_name, f"{models_dir}/model_{dataset_name}")
+        if (preferred_local_output / "config.json").exists():
+            return str(preferred_local_output)
+
+        default_output = model_outputs.get("default")
+        if default_output:
+            default_output_path = mlx_dir / default_output
+            if (default_output_path / "config.json").exists():
+                return str(default_output_path)
+
+    return _read_model_name_from_config(config_path)
+
+
+model_path = _resolve_model_path()
 
 print(f"Loading model from {model_path}...")
 model, tokenizer = load(model_path)
+
 print("Model loaded successfully!")
 
 @app.route("/chat", methods=["POST"])

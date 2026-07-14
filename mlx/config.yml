@@ -5,7 +5,6 @@
 base_dir: "."
 dataset_dir: "dataset"
 models_dir: "llm_models"
-adapters_dir: "adapters"
 
 # Model configuration
 model:
@@ -18,6 +17,7 @@ model:
 training:
   batch_size: 1
   iters: 600
+  validation_split: 0.1
   learning_rate: 1e-5
   warmup_steps: 100
   
@@ -32,6 +32,8 @@ datasets:
 
 # Output paths for trained models
 output:
+  complete: "llm_models/model_complete"
+  extended: "llm_models/model_extended"
   default: "llm_models/mistral_finetuned"
   balanced: "llm_models/mistral_finetuned_balanced"
   continue: "llm_models/mistral_continued"

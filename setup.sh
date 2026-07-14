@@ -71,7 +71,6 @@ echo ""
 echo -e "${BLUE}Creating directory structure...${NC}"
 mkdir -p mlx/dataset
 mkdir -p mlx/llm_models
-mkdir -p mlx/adapters
 mkdir -p mlx/script
 mkdir -p mlx/python_script
 echo -e "${GREEN}✓ Directories created${NC}"

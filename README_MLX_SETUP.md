@@ -53,10 +53,12 @@ Or use the provided shell script:
 
 ## Dataset Format
 
-The `dataset/dirac_data_2` directory contains the training data for fine-tuning. It includes a file named `train.jsonl`.
+The `dataset/dirac_data_2` directory contains the training data for fine-tuning. It should include `train.jsonl`, and may also include `valid.jsonl` and `test.jsonl`.
 
 ### `train.jsonl` Format
 `train.jsonl` is a JSONL (JSON Lines) file. Each line is a single JSON object representing one training entry. Entries are separated by newlines (not commas).
+
+If `valid.jsonl` is missing, `mlx/python_script/train.py` will automatically create a temporary validation split from the last 10% of `train.jsonl`. You can override that ratio with `training.validation_split` in `mlx/config.yml`.
 
 Format:
 ```

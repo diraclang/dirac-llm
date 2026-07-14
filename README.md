@@ -70,8 +70,7 @@ llm/
 ├── mlx/
 │   ├── config.yml          # Main configuration file
 │   ├── dataset/            # Training datasets
-│   ├── llm_models/         # Saved models and adapters
-│   ├── adapters/           # Training checkpoints
+│   ├── llm_models/         # Saved fused runnable models
 │   ├── python_script/      # Python utilities
 │   │   ├── train.py       # Training wrapper
 │   │   └── download_model.py  # Model downloader
@@ -87,13 +86,9 @@ llm/
 python python_script/train.py --dataset complete --iters 600
 ```
 
-### Continue Training from Checkpoint
-```bash
-python python_script/train.py \
-  --dataset extended \
-  --resume llm_models/mistral_finetuned/adapters.safetensors \
-  --output llm_models/mistral_continued
-```
+By default this now does two things:
+- Trains using temporary internal LoRA adapters
+- Saves a fused full runnable model at `mlx/llm_models/model_complete`
 
 ### Custom Parameters
 ```bash

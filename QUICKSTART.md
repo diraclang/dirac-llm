@@ -64,6 +64,7 @@ This will:
 1. Auto-download the Mistral-7B model (~4GB)
 2. Load your training dataset
 3. Start LoRA fine-tuning
+4. Save a full runnable model in `mlx/llm_models/model_complete` (default)
 
 ### Option B: Full Training
 
@@ -92,6 +93,8 @@ mkdir -p mlx/dataset/my_data
 # Copy your train.jsonl file into mlx/dataset/my_data/
 ```
 
+If your dataset folder does not include a `valid.jsonl`, the training wrapper will automatically carve off the last 10% of `train.jsonl` as validation data. You can tune that ratio with `training.validation_split` in `mlx/config.yml` or provide your own `valid.jsonl` explicitly.
+
 ### 3. Update Configuration
 
 Edit `mlx/config.yml`:
@@ -119,14 +122,6 @@ python mlx/python_script/download_model.py --list
 ### Download Specific Model
 ```bash
 python mlx/python_script/download_model.py --model mlx-community/Mistral-7B-Instruct-v0.3
-```
-
-### Continue Training from Checkpoint
-```bash
-python mlx/python_script/train.py \
-  --dataset extended \
-  --resume llm_models/mistral_finetuned/adapters.safetensors \
-  --output llm_models/my_continued_model
 ```
 
 ### Change Training Parameters
@@ -175,6 +170,9 @@ brew install python@3.11
 
 ### "Dataset not found"
 **Solution:** Make sure your dataset folder exists in `mlx/dataset/` and contains a `train.jsonl` file.
+
+### "Validation set not found or empty"
+**Solution:** Add a `valid.jsonl` next to `train.jsonl`, or use the Python training wrapper which now auto-generates a temporary validation split from `train.jsonl`.
 
 ### "Model download fails"
 **Solution:** Check your internet connection. Models download from Hugging Face and can be 4-8GB.

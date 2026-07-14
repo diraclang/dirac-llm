@@ -2,7 +2,7 @@ from mlx_lm import load
 
 
 # Update this path to your model directory
-model_path = "./adapters"  # Path where the model is downloaded
+model_path = "./llm_models/model_complete"  # Path to fused model output
 model, tokenizer = load(model_path)
 
 

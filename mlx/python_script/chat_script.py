@@ -4,7 +4,7 @@ from transformers import AutoTokenizer
 
 
 # Path to your quantized model
-model_path = "../llm_models/adapters"
+model_path = "../llm_models/model_complete"
 model, _ = load(model_path)
 tokenizer = AutoTokenizer.from_pretrained(model_path)
 
