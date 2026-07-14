@@ -42,7 +42,7 @@ Place your training data in `mlx/dataset/`. The data should be in JSONL format w
 
 ```bash
 cd mlx
-python python_script/train.py --dataset complete --iters 600
+python python_script/train.py --dataset extended --iters 600
 ```
 
 **Option B: Using shell scripts**
@@ -83,7 +83,7 @@ llm/
 
 ### Basic Training
 ```bash
-python python_script/train.py --dataset complete --iters 600
+python python_script/train.py --dataset extended --iters 600
 ```
 
 By default this now does two things:
