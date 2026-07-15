@@ -2,7 +2,7 @@
 set -euo pipefail
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
-MODEL_DIR="${SCRIPT_DIR}/../llm_models/model_extended"
+MODEL_DIR="${SCRIPT_DIR}/../llm_models/mistral_retrained"
 
 if [[ ! -d "${MODEL_DIR}" ]]; then
 	echo "Error: model directory not found: ${MODEL_DIR}" >&2
