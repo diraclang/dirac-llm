@@ -70,6 +70,32 @@ def prepare_dataset_dir(config: dict, dataset_path: Path) -> tuple:
     return prepared_dir, prepared_dir
 
 
+def ensure_hf_snapshot_complete(model_name: str) -> None:
+    """Ensure Hugging Face snapshot contains metadata files needed by mlx_lm.fuse."""
+    model_path = Path(model_name)
+    if model_path.exists():
+        return
+    if "/" not in model_name:
+        return
+
+    try:
+        from huggingface_hub import snapshot_download
+    except Exception as error:
+        raise RuntimeError(
+            "huggingface_hub is required to prefetch model snapshot before fuse."
+        ) from error
+
+    print(f"Ensuring complete Hugging Face snapshot for: {model_name}")
+    try:
+        snapshot_download(repo_id=model_name, local_files_only=False)
+    except Exception as error:
+        raise RuntimeError(
+            "Unable to complete Hugging Face snapshot. Re-run with network access once, "
+            "or manually run: huggingface-cli download "
+            f"{model_name} --repo-type model"
+        ) from error
+
+
 def run_training(
     config: dict,
     dataset: str = "complete",
@@ -142,6 +168,11 @@ def run_training(
         fused_output_path = output_path or dataset_default_output
         if fused_output_path:
             fused_output_full_path = base_dir / fused_output_path
+            try:
+                ensure_hf_snapshot_complete(model_name)
+            except RuntimeError as error:
+                print(f"\nError: {error}")
+                sys.exit(1)
             fuse_cmd = [
                 'mlx_lm.fuse',
                 '--model', model_name,
