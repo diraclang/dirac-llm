@@ -1,64 +1,23 @@
 """
 Stateless HTTP chat endpoint for dirac integration.
-
-Automatically loads model from llm_models directory:
-  Priority 1: llm_models/adapters  (fine-tuned with LoRA)
-  Priority 2: llm_models/model_extended_{A|B}  (base model, selected by .current file)
-
-The .current file contains either "A" or "B" to toggle between base models.
-
-Just run: python stateless_chat_server_train.py
+Accepts POST requests with a JSON body containing a 'message' field (concatenated conversation),
+and returns the assistant's response.
+Dirac handles conversation history - this server is stateless.
 """
 
+import os
 from pathlib import Path
-
-try:
-    from flask import Flask, request, jsonify
-    from mlx_lm import generate, load
-except ModuleNotFoundError as exc:
-    missing_module = exc.name or "required dependency"
-    raise SystemExit(
-        "Missing Python dependency: "
-        f"{missing_module}. Run 'bash setup.sh' and then start with "
-        "'source .venv/bin/activate && python mlx/python_script/stateless_chat_server_train.py' "
-        "or '.venv/bin/python mlx/python_script/stateless_chat_server_train.py'."
-    ) from exc
+from flask import Flask, request, jsonify
+from mlx_lm import generate, load
 
 app = Flask(__name__)
 
+# Load the model
 script_dir = Path(__file__).parent.resolve()
-mlx_dir = script_dir.parent
-llm_models_dir = mlx_dir / "llm_models"
-
-# Read which base model to use (A or B) from .current file
-current_file = llm_models_dir / ".current"
-if current_file.exists():
-    current_model = current_file.read_text().strip()
-else:
-    raise SystemExit(f"\n❌ {current_file} not found. Create it with 'A' or 'B'.\n")
-
-# Check for model in llm_models directory
-# Priority: adapters first, then model_extended_A or model_extended_B
-model_path_adapters = llm_models_dir / "adapters"
-model_path_base = llm_models_dir / f"model_extended_{current_model}"
-
-if (model_path_adapters / "config.json").exists():
-    model_path = str(model_path_adapters)
-    print(f"Using model: {model_path} (adapters)")
-elif (model_path_base / "config.json").exists():
-    model_path = str(model_path_base)
-    print(f"Using model: {model_path} (base model {current_model})")
-else:
-    raise SystemExit(
-        f"\n❌ No model found in {llm_models_dir}\n"
-        f"Expected one of:\n"
-        f"  - {model_path_adapters}/config.json\n"
-        f"  - {model_path_base}/config.json\n"
-    )
+model_path = str(script_dir.parent / "llm_models" / "model_extended_A")
 
 print(f"Loading model from {model_path}...")
 model, tokenizer = load(model_path)
-
 print("Model loaded successfully!")
 
 @app.route("/chat", methods=["POST"])
