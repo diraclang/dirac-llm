@@ -14,7 +14,7 @@ app = Flask(__name__)
 
 # Load the model
 script_dir = Path(__file__).parent.resolve()
-model_path = str(script_dir.parent / "llm_models" / "model_extended_A")
+model_path = str(script_dir.parent / "llm_models" / "model_extended_B")
 
 print(f"Loading model from {model_path}...")
 model, tokenizer = load(model_path)
