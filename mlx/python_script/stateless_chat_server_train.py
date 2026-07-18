@@ -132,12 +132,27 @@ def chat():
         add_generation_prompt=True
     )
     
+    # Check prompt token count and enforce context window limit
+    MAX_CONTEXT_WINDOW = 32768  # Model's max_position_embeddings
+    MAX_OUTPUT_TOKENS = 500
+    MAX_INPUT_TOKENS = MAX_CONTEXT_WINDOW - MAX_OUTPUT_TOKENS - 100  # Reserve 100 tokens buffer
+    
+    prompt_tokens = tokenizer.encode(prompt)
+    prompt_token_count = len(prompt_tokens)
+    
+    if prompt_token_count > MAX_INPUT_TOKENS:
+        # Truncate from the beginning (keep most recent context)
+        # Always keep system message (first message) and truncate from middle
+        truncated_tokens = prompt_tokens[-MAX_INPUT_TOKENS:]
+        prompt = tokenizer.decode(truncated_tokens)
+        print(f"⚠️  Warning: Prompt truncated from {prompt_token_count} to {len(truncated_tokens)} tokens")
+    
     # Generate response
     response = generate(
         model,
         tokenizer,
         prompt=prompt,
-        max_tokens=500,
+        max_tokens=MAX_OUTPUT_TOKENS,
         verbose=False
     )
     
@@ -151,7 +166,10 @@ def health():
     return jsonify({
         "status": "ok",
         "model": model_path,
-        "stateless": True
+        "stateless": True,
+        "context_window": 32768,
+        "max_input_tokens": 32168,
+        "max_output_tokens": 500
     })
 
 if __name__ == "__main__":
